@@ -12,6 +12,4 @@ public abstract class UserCSV {
 
     protected String nome;
     protected String cpf;
-    protected String dataNascimento;
-
 }

@@ -19,7 +19,6 @@ public class UserCSVOut extends UserCSV {
     public void copyUsuarioEntrada(UserCSVIn usrEntrada){
         this.cpf = usrEntrada.cpf;
         this.nome = usrEntrada.nome;
-        this.dataNascimento = usrEntrada.dataNascimento;
     }
 
 }
