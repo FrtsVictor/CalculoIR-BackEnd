@@ -1,6 +1,8 @@
 package com.alterdata.calculo.ir.CalculoIRPF.controllers;
 
+import com.alterdata.calculo.ir.CalculoIRPF.exceptions.UserCVSInValitaionException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,6 +24,13 @@ public class ExceptionController {
         return errors;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserCVSInValitaionException.class)
+    public Map<String, String> handleUserCSVInValidation(UserCVSInValitaionException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put(ex.getError(), ex.getMessage());
 
+        return error;
+    }
 
 }

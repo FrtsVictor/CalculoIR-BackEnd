@@ -1,9 +1,9 @@
-package com.alterdata.calculo.ir.CalculoIRPF.CalculoIR;
+package com.alterdata.calculo.ir.CalculoIRPF.CalculoIRPF;
 
 import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVIn;
 import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVOut;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calc.CalcBaseAliqAnualSimplesWithoutCSVOutService;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calc.CalcImpostoRenda;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.AliqAnualSimplesService;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.CalcIRSimplesServices;
 import org.junit.jupiter.api.*;
 
 @DisplayName("Executando Calculo  ImpostoRenda")
@@ -12,16 +12,16 @@ public class CalculoIRTests {
         private TestInfo testInfo;
         private TestReporter testReporter;
 
-        private CalcBaseAliqAnualSimplesWithoutCSVOutService aliquotaAnualService;
+        private AliqAnualSimplesService aliquotaAnualService;
         private UserCSVIn usuarioCSVIn;
-        private CalcImpostoRenda calcImpostoRenda;
+        private CalcIRSimplesServices calcIRSimplesService;
 
 
     @BeforeEach
         void initEach(TestReporter testReporter, TestInfo testInfo) {
-            aliquotaAnualService = new CalcBaseAliqAnualSimplesWithoutCSVOutService();
+            aliquotaAnualService = new AliqAnualSimplesService();
             usuarioCSVIn = new UserCSVIn();
-            calcImpostoRenda = new CalcImpostoRenda(aliquotaAnualService);
+            calcIRSimplesService = new CalcIRSimplesServices(aliquotaAnualService);
 
             this.testReporter = testReporter;
             this.testInfo = testInfo;
@@ -39,11 +39,11 @@ public class CalculoIRTests {
         usrIn.setNome("Victor");
         usrIn.setCpf("160.428.122-89");
         usrIn.setRendimentoAnualBruto(rendimentoAnualBruto);
-        usrIn.setDataNascimento("17-03-1994");
+//        usrIn.setDataNascimento("17-03-1994");
 
         aliquotaAnualService.generateDeducaoAndAliquota2(usrIn);
-        calcImpostoRenda.calcularIR(aliquotaAnualService);
-        UserCSVOut usrOut = calcImpostoRenda.generateCSVOut();
+        calcIRSimplesService.calcularIR(aliquotaAnualService);
+        UserCSVOut usrOut = calcIRSimplesService.generateCSVOut();
 
         System.out.println(usrOut);
 

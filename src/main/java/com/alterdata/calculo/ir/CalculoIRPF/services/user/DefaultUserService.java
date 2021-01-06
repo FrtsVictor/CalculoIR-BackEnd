@@ -1,21 +1,28 @@
 package com.alterdata.calculo.ir.CalculoIRPF.services.user;
 
-import com.alterdata.calculo.ir.CalculoIRPF.dto.UserDto;
-import com.alterdata.calculo.ir.CalculoIRPF.exceptions.ValidationException;
-import org.springframework.stereotype.Component;
+import com.alterdata.calculo.ir.CalculoIRPF.exceptions.UserCVSInValitaionException;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVIn;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVOut;
 import org.springframework.stereotype.Service;
-
-import static java.util.Objects.isNull;
 
 @Service
 public class DefaultUserService {
 
-    private void validateUserDto(UserDto userDto) throws ValidationException {
-        if (isNull(userDto)) {
-            throw new ValidationException("Object user is null");
+    public void validateUserCsvIn(UserCSVIn usrIn) throws UserCVSInValitaionException {
+        if (usrIn.getNome().isBlank() || usrIn.getNome().length() < 3){
+            throw new UserCVSInValitaionException("nome", "Nome invalido deve possuir min 3 caracteres");
         }
-        if (isNull(userDto.getUserName()) || userDto.getUserName().isEmpty()) {
-            throw new ValidationException("Login is empty");
+
+        if (usrIn.getCpf().isBlank() || usrIn.getCpf().length() < 11){
+            throw new UserCVSInValitaionException("cpf", "Cpf invalido deve possuir min 11 caracteres");
         }
+
     }
+
+    public void CopyNameCpfNasc(UserCSVIn usrIn, UserCSVOut usrOut) {
+        usrOut.setNome(usrIn.getNome());
+        usrOut.setCpf(usrIn.getCpf());
+    }
+
+
 }

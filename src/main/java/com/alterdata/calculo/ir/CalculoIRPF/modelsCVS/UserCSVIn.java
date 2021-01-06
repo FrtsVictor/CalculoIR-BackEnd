@@ -11,7 +11,7 @@ public class UserCSVIn extends UserCSV {
     private double rendimentoAnualBruto;
 
     public UserCSVIn(String nome, String cpf, String dataNascimento, double rendimentoAnualBruto) {
-        super(nome, cpf, dataNascimento);
+        super(nome, cpf);
         this.rendimentoAnualBruto = rendimentoAnualBruto;
     }
 
@@ -20,5 +20,4 @@ public class UserCSVIn extends UserCSV {
         this.cpf = cpf;
         this.rendimentoAnualBruto = rendimentoAnualBruto;
     }
-
 }

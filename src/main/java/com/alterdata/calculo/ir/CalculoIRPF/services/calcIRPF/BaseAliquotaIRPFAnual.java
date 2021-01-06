@@ -1,6 +1,6 @@
-package com.alterdata.calculo.ir.CalculoIRPF.services.calc;
+package com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF;
 
-public interface CalcBaseAliquota {
+public interface BaseAliquotaIRPFAnual {
 
     double tetoDeducaoSimplificada = 16754.34;
     double valorBaseDeducaoSimplificada = 0.20;
