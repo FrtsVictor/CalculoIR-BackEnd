@@ -1,9 +1,9 @@
 package com.alterdata.calculo.ir.CalculoIRPF.CalculoIRPF;
 
-import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVIn;
-import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVOut;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.AliqAnualSimplesService;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.CalcIRSimplesServices;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserIn;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserOut;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF.CalcAliqAnualSimplesIRPFService;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF.CalcIRSimplesService;
 import org.junit.jupiter.api.*;
 
 @DisplayName("Executando Calculo  ImpostoRenda")
@@ -12,16 +12,16 @@ public class CalculoIRTests {
         private TestInfo testInfo;
         private TestReporter testReporter;
 
-        private AliqAnualSimplesService aliquotaAnualService;
-        private UserCSVIn usuarioCSVIn;
-        private CalcIRSimplesServices calcIRSimplesService;
+        private CalcAliqAnualSimplesIRPFService aliquotaAnualService;
+        private CalcUserIn usuarioCSVIn;
+        private CalcIRSimplesService calcIRSimplesService;
 
 
     @BeforeEach
         void initEach(TestReporter testReporter, TestInfo testInfo) {
-            aliquotaAnualService = new AliqAnualSimplesService();
-            usuarioCSVIn = new UserCSVIn();
-            calcIRSimplesService = new CalcIRSimplesServices(aliquotaAnualService);
+            aliquotaAnualService = new CalcAliqAnualSimplesIRPFService();
+            usuarioCSVIn = new CalcUserIn();
+            calcIRSimplesService = new CalcIRSimplesService(aliquotaAnualService);
 
             this.testReporter = testReporter;
             this.testInfo = testInfo;
@@ -35,7 +35,7 @@ public class CalculoIRTests {
     @Test
     public void deveRetornarUsuarioCSVOutComTodosCalculos() {
         double rendimentoAnualBruto = 40000;
-        UserCSVIn usrIn= new UserCSVIn();
+        CalcUserIn usrIn= new CalcUserIn();
         usrIn.setNome("Victor");
         usrIn.setCpf("160.428.122-89");
         usrIn.setRendimentoAnualBruto(rendimentoAnualBruto);
@@ -43,7 +43,7 @@ public class CalculoIRTests {
 
         aliquotaAnualService.generateDeducaoAndAliquota2(usrIn);
         calcIRSimplesService.calcularIR(aliquotaAnualService);
-        UserCSVOut usrOut = calcIRSimplesService.generateCSVOut();
+        CalcUserOut usrOut = calcIRSimplesService.generateCSVOut();
 
         System.out.println(usrOut);
 
