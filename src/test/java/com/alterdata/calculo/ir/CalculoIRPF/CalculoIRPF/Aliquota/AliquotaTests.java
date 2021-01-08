@@ -1,24 +1,25 @@
 package com.alterdata.calculo.ir.CalculoIRPF.CalculoIRPF.Aliquota;
 
-import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVIn;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.AliqAnualSimplesService;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserIn;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF.CalcAliqAnualSimplesIRPFService;
 import org.junit.jupiter.api.*;
 
-import static com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF.BaseAliquotaIRPFAnual.*;
+import static com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF.BaseAnualIRPF.*;
+import static com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF.TetoSalarioBrutoALiq.*;
 
 public class AliquotaTests {
 
     private TestInfo testInfo;
     private TestReporter testReporter;
 
-    private AliqAnualSimplesService aliquotaAnualService2;
+    private CalcAliqAnualSimplesIRPFService aliquotaAnualService2;
 
-    private UserCSVIn usuarioCSVIn;
+    private CalcUserIn usuarioCSVIn;
 
     @BeforeEach
     void initEach(TestReporter testReporter, TestInfo testInfo) {
-        aliquotaAnualService2 = new AliqAnualSimplesService();
-        usuarioCSVIn = new UserCSVIn();
+        aliquotaAnualService2 = new CalcAliqAnualSimplesIRPFService();
+        usuarioCSVIn = new CalcUserIn();
 
 
         this.testReporter = testReporter;
@@ -33,20 +34,20 @@ public class AliquotaTests {
     @DisplayName("Deducao simplificada, teto = 16754.34")
     class DeducaoSimplificada {
         @Test
-        public void deve_retornar_RetoDeducaoSimplificada() {
-            double rendimentoAnual = 1000000;
+        public void deve_retornar_TetoDeducaoSimplificada() {
+            double rendimentoAnual = teto_deducao;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(aliquotaAnualService2.getDeducaoSimplificada(), tetoDeducaoSimplificada);
         }
 
         @Test
-        public void nao_DeveRetornarTetoDeducaoSimplificada() {
-            double rendimentoAnual = 40000;
+        public void nao_deve_retornar_TetoDeducaoSimplificada() {
+            double rendimentoAnual = teto_deducao - 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(aliquotaAnualService2.getDeducaoSimplificada(), tetoDeducaoSimplificada);
@@ -60,9 +61,9 @@ public class AliquotaTests {
 
         @Test
         void deve_retornar_Aliquota1_para_valor_inicial() {
-            double rendimentoAnual = base1_valorInicial * 1.30;
+            double rendimentoAnual = ali1_inicial;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals( base1_aliquota, aliquotaAnualService2.getPorcentagemAliquota());
@@ -71,9 +72,9 @@ public class AliquotaTests {
 
         @Test
         void nao_Deve_retornar_Aliquota1_para_valores_superioes() {
-            double rendimentoAnual = (base1_valorInicial * 1.30) + 0.1;
+            double rendimentoAnual = ali1_inicial + 0.1;
             System.out.println(rendimentoAnual);
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base1_aliquota, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -87,9 +88,9 @@ public class AliquotaTests {
     class Aliquota2 {
         @Test
         void deve_retornar_Aliquota2_para_valor_inicial() {
-            double rendimentoAnual = base2_valorInicial * 1.30;
+            double rendimentoAnual = ali2_inicial;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base2_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -98,9 +99,9 @@ public class AliquotaTests {
 
         @Test
         void deve_retornar_Aliquota2_para_valor_final() {
-            double rendimentoAnual = base2_valorFinal * 1.30;
+            double rendimentoAnual = ali2_final;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base2_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -109,9 +110,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota2_para_valores_superioes() {
-            double rendimentoAnual = base2_valorFinal * 1.30 + 0.1;
+            double rendimentoAnual = ali2_final + 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base2_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -120,9 +121,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota2_para_valores_inferioes() {
-            double rendimentoAnual = base2_valorInicial * 1.30 - 0.1;
+            double rendimentoAnual = ali2_inicial - 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base2_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -136,9 +137,9 @@ public class AliquotaTests {
     class Aliquota3 {
         @Test
         void deve_retornar_Aliquota3_para_valor_inicial() {
-            double rendimentoAnual = base3_valorInicial * 1.30;
+            double rendimentoAnual = aliq3_inicial;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base3_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -147,9 +148,9 @@ public class AliquotaTests {
 
         @Test
         void deve_retornar_Aliquota3_para_valor_final() {
-            double rendimentoAnual = base3_valorFinal * 1.30;
+            double rendimentoAnual = aliq3_final;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base3_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -158,9 +159,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota3_para_valores_superioes() {
-            double rendimentoAnual = base3_valorFinal * 1.30 + 0.1;
+            double rendimentoAnual = aliq3_final + 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base3_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -169,9 +170,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota3_para_valores_inferioes() {
-            double rendimentoAnual = base3_valorInicial * 1.30 - 0.1;
+            double rendimentoAnual = aliq3_inicial - 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base3_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -185,9 +186,9 @@ public class AliquotaTests {
     class Aliquota4 {
         @Test
         void deve_retornar_Aliquota4_para_valor_inicial() {
-            double rendimentoAnual = base4_valorInicial * 1.30;
+            double rendimentoAnual = aliq4_inicial;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base4_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -196,9 +197,9 @@ public class AliquotaTests {
 
         @Test
         void deve_retornar_Aliquota4_para_valor_final() {
-            double rendimentoAnual = base4_valorFinal * 1.30;
+            double rendimentoAnual = aliq4_final;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertEquals(base4_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -207,9 +208,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota4_para_valores_superioes() {
-            double rendimentoAnual = base4_valorFinal * 1.30 + 0.1;
+            double rendimentoAnual = aliq4_final + 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base4_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -218,9 +219,9 @@ public class AliquotaTests {
 
         @Test
         void nao_deve_retornar_Aliquota4_para_valores_inferioes() {
-            double rendimentoAnual = base4_valorInicial * 1.30 - 0.1;
+            double rendimentoAnual = aliq4_inicial - 0.1;
 
-            UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+            CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
             aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
             Assertions.assertNotEquals(base4_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -232,9 +233,9 @@ public class AliquotaTests {
         class Aliquota5 {
             @Test
             void deve_retornar_Aliquota5_para_valor_inicial() {
-                double rendimentoAnual = base5_valorInicial * 1.30;
+                double rendimentoAnual = aliq5_inicial;
 
-                UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+                CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
                 aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
                 Assertions.assertEquals(base5_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
@@ -243,13 +244,13 @@ public class AliquotaTests {
 
             @Test
             void nao_deve_retornar_Aliquota5_para_valores_inferioes() {
-                double rendimentoAnual = base5_valorInicial * 1.30 - 0.1;
+                double rendimentoAnual = aliq5_inicial - 0.1;
 
-                UserCSVIn usrIn = new UserCSVIn("victor", "1325645", rendimentoAnual);
+                CalcUserIn usrIn = new CalcUserIn("victor", "1325645", rendimentoAnual);
                 aliquotaAnualService2.generateDeducaoAndAliquota2(usrIn);
 
-                Assertions.assertNotEquals(base4_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
-                Assertions.assertNotEquals(base4_aliquota, aliquotaAnualService2.getPorcentagemAliquota());
+                Assertions.assertNotEquals(base5_parcelaADeduzir, aliquotaAnualService2.getParcelaADeduzirAliquota());
+                Assertions.assertNotEquals(base5_aliquota, aliquotaAnualService2.getPorcentagemAliquota());
             }
         }
     }

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class UserCSVOut extends UserCSV {
+public class CalcUserOut extends CalcUser {
 
     private double rendimentoAnualBruto;
     private double porcentagemAliquota;
@@ -16,7 +16,7 @@ public class UserCSVOut extends UserCSV {
     private double parcelaDedutivel;
     private double impostoRenda;
 
-    public void copyUsuarioEntrada(UserCSVIn usrEntrada){
+    public void copyUsuarioEntrada(CalcUserIn usrEntrada){
         this.cpf = usrEntrada.cpf;
         this.nome = usrEntrada.nome;
     }
