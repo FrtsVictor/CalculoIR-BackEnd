@@ -1,14 +1,16 @@
-package com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF;
+package com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF;
 
-import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVIn;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserIn;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 @Getter @Setter @Data
 @Service
-public class AliqAnualSimplesService implements BaseAliquotaIRPFAnual {
+public class CalcAliqAnualSimplesIRPFService implements BaseAnualIRPF {
 
     private double rendimentoAnualBruto;
     private double deducaoSimplificada;
@@ -16,24 +18,26 @@ public class AliqAnualSimplesService implements BaseAliquotaIRPFAnual {
     private double porcentagemAliquota;
     private double parcelaADeduzirAliquota;
 
+    DecimalFormat df = new DecimalFormat("#.00");
+
     private void createDeducaoSimplificada(){
         double calcDeducaoSimplificada = this.rendimentoAnualBruto * valorBaseDeducaoSimplificada;
 
         if(calcDeducaoSimplificada > tetoDeducaoSimplificada ){
             calcDeducaoSimplificada = tetoDeducaoSimplificada;
         }
-        this.deducaoSimplificada = calcDeducaoSimplificada;
+        this.deducaoSimplificada = Math.round(calcDeducaoSimplificada * 100.0)/100.0;
     }
 
 
     private void createCalculoBase(){
         double calcBaseCalculo = this.rendimentoAnualBruto - deducaoSimplificada;
-        this.baseDeCalculo = calcBaseCalculo;
+        this.baseDeCalculo = Math.round(calcBaseCalculo * 100.0)/100.0;
     }
 
 
     private void aliquota1() {
-        if (this.baseDeCalculo < base1_valorInicial) {
+        if (this.baseDeCalculo <= base1_valorInicial && this.baseDeCalculo >  0) {
             this.porcentagemAliquota = base1_aliquota;
             this.parcelaADeduzirAliquota = base1_parcelaADeduzir;
         }
@@ -68,7 +72,7 @@ public class AliqAnualSimplesService implements BaseAliquotaIRPFAnual {
     }
 
 
-    public void generateDeducaoAndAliquota2(UserCSVIn usrCSVIn) {
+    public void generateDeducaoAndAliquota2(CalcUserIn usrCSVIn) {
         this.rendimentoAnualBruto = usrCSVIn.getRendimentoAnualBruto();
         createDeducaoSimplificada();
         createCalculoBase();
