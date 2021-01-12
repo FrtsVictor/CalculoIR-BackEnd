@@ -72,7 +72,7 @@ public class CalcAliqAnualSimplesIRPFService implements BaseAnualIRPF {
     }
 
 
-    public void generateDeducaoAndAliquota2(CalcUserIn usrCSVIn) {
+    public void generateAliquota(CalcUserIn usrCSVIn) {
         this.rendimentoAnualBruto = usrCSVIn.getRendimentoAnualBruto();
         createDeducaoSimplificada();
         createCalculoBase();
