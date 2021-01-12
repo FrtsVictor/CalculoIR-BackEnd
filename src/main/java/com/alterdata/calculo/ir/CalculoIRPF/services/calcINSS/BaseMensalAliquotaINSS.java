@@ -1,6 +1,6 @@
-package com.alterdata.calculo.ir.CalculoIRPF.services.calcIRRF;
+package com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS;
 
-public interface BaseAliquotaAnualIRRF {
+public interface BaseMensalAliquotaINSS {
 
     double tetoINSS = 713.10;
 
@@ -18,8 +18,8 @@ public interface BaseAliquotaAnualIRRF {
     double faixa3_valorFinal =  3134.40;
     double faixa3_parcelaADeduzir = 78.36;
 
-    double faixa4_aliquota = 22.5;
+    double faixa4_aliquota = 14;
     double faixa4_valorInicial =  3134.41;
     double faixa4_valorFinal = 6101.06;
-    double faixa4_parcelaADeduzir = 146.05;
+    double faixa4_parcelaADeduzir = 141.05;
 }

@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLiq {
+public class UserINSSIn {
 
     private String nome;
-    private double salarioLiquido;
+    private double salarioBruto;
 
 }

@@ -1,31 +1,31 @@
-package com.alterdata.calculo.ir.CalculoIRPF.services.calcIRPF;
+package com.alterdata.calculo.ir.CalculoIRPF.services.calcAnualIRPF;
 
-import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.UserCSVOut;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserOut;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalcIRSimplesServices {
+public class CalcIRSimplesService {
 
-    AliqAnualSimplesService aliqService;
+    CalcAliqAnualSimplesIRPFService aliqService;
     private double impostoInicial;
     private double impostoRenda;
 
-    public CalcIRSimplesServices(AliqAnualSimplesService aliqService) {
-        this.aliqService = new AliqAnualSimplesService();
+    public CalcIRSimplesService(CalcAliqAnualSimplesIRPFService aliqService) {
+        this.aliqService = new CalcAliqAnualSimplesIRPFService();
     }
 
     private void calcularImpostoInicial() {
         this.impostoInicial =  aliqService.getPorcentagemAliquota() * aliqService.getBaseDeCalculo() /100 ;
     }
 
-    public void calcularIR(AliqAnualSimplesService calcAliqAnualSimplesWithoutCSVOutService) {
+    public void calcularIR(CalcAliqAnualSimplesIRPFService calcAliqAnualSimplesWithoutCSVOutService) {
         this.aliqService = calcAliqAnualSimplesWithoutCSVOutService;
         calcularImpostoInicial();
         this.impostoRenda = this.impostoInicial - aliqService.getParcelaADeduzirAliquota();
     }
 
-    public UserCSVOut generateCSVOut() {
-        return UserCSVOut.builder()
+    public CalcUserOut generateCSVOut() {
+        return CalcUserOut.builder()
                 .rendimentoAnualBruto(aliqService.getRendimentoAnualBruto())
                 .porcentagemAliquota(aliqService.getPorcentagemAliquota())
                 .baseDeCalculo(this.aliqService.getBaseDeCalculo())

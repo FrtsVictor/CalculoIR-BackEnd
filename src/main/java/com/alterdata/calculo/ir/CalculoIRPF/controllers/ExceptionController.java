@@ -2,7 +2,6 @@ package com.alterdata.calculo.ir.CalculoIRPF.controllers;
 
 import com.alterdata.calculo.ir.CalculoIRPF.exceptions.UserCVSInValitaionException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
