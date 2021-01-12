@@ -1,7 +1,7 @@
 package com.alterdata.calculo.ir.CalculoIRPF.CalculoINSS;
 
 import com.alterdata.calculo.ir.CalculoIRPF.models.UserINSSIn;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.CalcINSS;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.CalcINSSService;
 import org.junit.jupiter.api.*;
 
 import static com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.BaseMensalAliquotaINSS.*;
@@ -11,12 +11,12 @@ public class GenerateFaixaSalarialTests {
 
     private TestInfo testInfo;
     private TestReporter testReporter;
-    private CalcINSS calcINSS;
+    private CalcINSSService calcINSSService;
     private UserINSSIn userINSSIn;
 
     @BeforeEach
     void initEach(TestReporter testReporter, TestInfo testInfo) {
-        calcINSS = new CalcINSS();
+        calcINSSService = new CalcINSSService();
         userINSSIn = new UserINSSIn();
 
         this.testReporter = testReporter;
@@ -36,10 +36,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa1_valorFinal;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa1_aliquota, calcINSS.getPorcentagemAliquota());
-            Assertions.assertEquals(faixa1_parcelaADeduzir, calcINSS.getParcelaADeduzir());
+            Assertions.assertEquals(faixa1_aliquota, calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa1_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
         }
 
         @Test
@@ -47,10 +47,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa1_valorFinal + 0.1;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa1_aliquota, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa1_parcelaADeduzir, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa1_aliquota, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa1_parcelaADeduzir, calcINSSService.getPorcentagemAliquota());
         }
 
     }
@@ -63,10 +63,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa2_valorFinal;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa2_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa2_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa2_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa2_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -74,10 +74,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa2_valorInicial;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa2_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa2_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa2_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa2_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
 
@@ -86,10 +86,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa2_valorFinal + 0.1;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa2_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa2_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa2_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa2_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -97,10 +97,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa2_valorInicial - 0.1;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa2_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa2_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa2_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa2_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
     }
@@ -113,10 +113,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa3_valorFinal;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa3_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa3_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa3_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa3_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -124,10 +124,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa3_valorInicial;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa3_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa3_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa3_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa3_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -135,10 +135,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa3_valorFinal + 0.1 ;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa3_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa3_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa3_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa3_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -146,10 +146,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa3_valorInicial - 0.1 ;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa3_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa3_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa3_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa3_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
     }
@@ -162,10 +162,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa4_valorFinal;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa4_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa4_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa4_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa4_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
         @Test
@@ -173,10 +173,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa4_valorInicial;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertEquals(faixa4_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertEquals(faixa4_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertEquals(faixa4_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(faixa4_aliquota, calcINSSService.getPorcentagemAliquota());
         }
 
 
@@ -196,10 +196,10 @@ public class GenerateFaixaSalarialTests {
             double salarioBrutoMensal = faixa4_valorInicial - 0.1;
 
             UserINSSIn userliq = new UserINSSIn("Victor", salarioBrutoMensal);
-            calcINSS.generateFaixaSalarial(userliq.getSalarioBruto());
+            calcINSSService.generateFaixaSalarial(userliq.getSalarioBruto());
 
-            Assertions.assertNotEquals(faixa4_parcelaADeduzir, calcINSS.getParcelaADeduzir());
-            Assertions.assertNotEquals(faixa4_aliquota, calcINSS.getPorcentagemAliquota());
+            Assertions.assertNotEquals(faixa4_parcelaADeduzir, calcINSSService.getParcelaADeduzir());
+            Assertions.assertNotEquals(faixa4_aliquota, calcINSSService.getPorcentagemAliquota());
         }
     }
 
