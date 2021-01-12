@@ -1,5 +1,7 @@
 package com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS;
 
+import com.alterdata.calculo.ir.CalculoIRPF.models.UserINSSIn;
+import com.alterdata.calculo.ir.CalculoIRPF.models.UserINSSOut;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,7 @@ import java.text.DecimalFormat;
 @Getter
 @Data
 @Service
-public class CalcINSS implements BaseMensalAliquotaINSS {
+public class CalcINSSService implements BaseMensalAliquotaINSS {
 
     private double parcelaADeduzir;
     private double porcentagemAliquota;
@@ -53,6 +55,17 @@ public class CalcINSS implements BaseMensalAliquotaINSS {
             this.parcelaADeduzir = faixa4_parcelaADeduzir;
             this.porcentagemAliquota = faixa4_aliquota;
         }
+    }
+
+    public UserINSSOut generateUserINSSOut(UserINSSIn user){
+        return UserINSSOut.builder()
+                .salarioBruto(user.getSalarioBruto())
+                .nome(user.getNome())
+                .parcelaADeduzir(this.getParcelaADeduzir())
+                .porcentagemAliquota(this.getPorcentagemAliquota())
+                .inss(this.getInss())
+                .deducaoAliquota(this.getDeducaoAliquota())
+                .build();
     }
 
 }

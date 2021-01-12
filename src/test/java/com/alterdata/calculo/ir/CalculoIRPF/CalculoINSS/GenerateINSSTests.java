@@ -1,7 +1,7 @@
 package com.alterdata.calculo.ir.CalculoIRPF.CalculoINSS;
 
 import com.alterdata.calculo.ir.CalculoIRPF.models.UserINSSIn;
-import com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.CalcINSS;
+import com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.CalcINSSService;
 import org.junit.jupiter.api.*;
 
 import static com.alterdata.calculo.ir.CalculoIRPF.services.calcINSS.BaseMensalAliquotaINSS.*;
@@ -12,12 +12,12 @@ public class GenerateINSSTests {
 
     private TestInfo testInfo;
     private TestReporter testReporter;
-    private CalcINSS calcINSS;
+    private CalcINSSService calcINSSService;
     private UserINSSIn userINSSIn;
 
     @BeforeEach
     void initEach(TestReporter testReporter, TestInfo testInfo) {
-        calcINSS = new CalcINSS();
+        calcINSSService = new CalcINSSService();
         userINSSIn = new UserINSSIn();
 
         this.testReporter = testReporter;
@@ -34,9 +34,9 @@ public class GenerateINSSTests {
         double salarioBruto = 10000;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        assertEquals(tetoINSS, calcINSS.getInss());
+        assertEquals(tetoINSS, calcINSSService.getInss());
     }
 
     @Test
@@ -44,9 +44,9 @@ public class GenerateINSSTests {
         double salarioBruto = 3000;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        assertNotEquals(tetoINSS, calcINSS.getInss());
+        assertNotEquals(tetoINSS, calcINSSService.getInss());
     }
 
 
@@ -55,9 +55,9 @@ public class GenerateINSSTests {
         double salarioBruto = 2200;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        System.out.println(calcINSS.toString());
+        System.out.println(calcINSSService.toString());
         System.out.println(inss);
     }
 
@@ -66,9 +66,9 @@ public class GenerateINSSTests {
         double salarioBruto = 3000;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        System.out.println(calcINSS.toString());
+        System.out.println(calcINSSService.toString());
         System.out.println(inss);
     }
 
@@ -78,9 +78,9 @@ public class GenerateINSSTests {
         double salarioBruto = 3134.41;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        System.out.println(calcINSS.toString());
+        System.out.println(calcINSSService.toString());
         System.out.println(inss);
     }
 
@@ -89,9 +89,9 @@ public class GenerateINSSTests {
         double salarioBruto = 15000;
 
         UserINSSIn user = new UserINSSIn("victor", salarioBruto);
-        double inss = calcINSS.generateINSS(user.getSalarioBruto());
+        double inss = calcINSSService.generateINSS(user.getSalarioBruto());
 
-        System.out.println(calcINSS.toString());
+        System.out.println(calcINSSService.toString());
         System.out.println(inss);
     }
 }
