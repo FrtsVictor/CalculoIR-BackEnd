@@ -9,7 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter @NoArgsConstructor
 public abstract class CalcUser {
-
     protected String nome;
-    protected String cpf;
 }
