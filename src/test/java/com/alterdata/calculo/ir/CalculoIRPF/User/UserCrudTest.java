@@ -1,7 +1,7 @@
 package com.alterdata.calculo.ir.CalculoIRPF.User;
 
 
-import com.alterdata.calculo.ir.CalculoIRPF.entity.User;
+import com.alterdata.calculo.ir.CalculoIRPF.models.User;
 import com.alterdata.calculo.ir.CalculoIRPF.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,21 +1,43 @@
 package com.alterdata.calculo.ir.CalculoIRPF.services.user;
 
-import com.alterdata.calculo.ir.CalculoIRPF.dto.UserDto;
-import com.alterdata.calculo.ir.CalculoIRPF.exceptions.ValidationException;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import com.alterdata.calculo.ir.CalculoIRPF.exceptions.UserCVSInValitaionException;
+import com.alterdata.calculo.ir.CalculoIRPF.models.UserINSSIn;
+import com.alterdata.calculo.ir.CalculoIRPF.models.UserIRRFIn;
+import com.alterdata.calculo.ir.CalculoIRPF.modelsCVS.CalcUserIn;
 
-import static java.util.Objects.isNull;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultUserService {
 
-    private void validateUserDto(UserDto userDto) throws ValidationException {
-        if (isNull(userDto)) {
-            throw new ValidationException("Object user is null");
+    public void validateUser(CalcUserIn usrIn) throws UserCVSInValitaionException {
+        if (usrIn.getNome().isBlank() || usrIn.getNome().length() < 3) {
+            throw new UserCVSInValitaionException("nome", "Nome invalido deve possuir min 3 caracteres");
         }
-        if (isNull(userDto.getUserName()) || userDto.getUserName().isEmpty()) {
-            throw new ValidationException("Login is empty");
+
+        if (usrIn.getRendimentoAnualBruto() < 1) {
+            throw new UserCVSInValitaionException("Rendimento Bruto", "Rendimento anual bruto invalido");
         }
     }
-}
+
+    public void validateUserINSS(UserINSSIn usrIn) throws UserCVSInValitaionException {
+        if (usrIn.getNome().isBlank() || usrIn.getNome().length() < 3) {
+            throw new UserCVSInValitaionException("nome", "Nome invalido deve possuir min 3 caracteres");
+        }
+
+        if (usrIn.getSalarioBruto() < 1) {
+            throw new UserCVSInValitaionException("Salario Bruto", "Salario mensal bruto invalido");
+        }
+    }
+
+    public void validateUserIRRF(UserIRRFIn usrIn) throws UserCVSInValitaionException {
+        if (usrIn.getNome().isBlank() || usrIn.getNome().length() < 3) {
+            throw new UserCVSInValitaionException("nome", "Nome invalido deve possuir min 3 caracteres");
+        }
+
+        if (usrIn.getSalarioBruto() < 1) {
+            throw new UserCVSInValitaionException("Salario Bruto", "Salario mensal bruto invalido");
+        }
+    }
+
+    }
