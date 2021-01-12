@@ -17,7 +17,6 @@ public class CalcUserOut extends CalcUser {
     private double impostoRenda;
 
     public void copyUsuarioEntrada(CalcUserIn usrEntrada){
-        this.cpf = usrEntrada.cpf;
         this.nome = usrEntrada.nome;
     }
 

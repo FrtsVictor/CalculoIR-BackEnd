@@ -37,11 +37,9 @@ public class CalculoIRTests {
         double rendimentoAnualBruto = 40000;
         CalcUserIn usrIn= new CalcUserIn();
         usrIn.setNome("Victor");
-        usrIn.setCpf("160.428.122-89");
         usrIn.setRendimentoAnualBruto(rendimentoAnualBruto);
-//        usrIn.setDataNascimento("17-03-1994");
 
-        aliquotaAnualService.generateDeducaoAndAliquota2(usrIn);
+        aliquotaAnualService.generateAliquota(usrIn);
         calcIRSimplesService.calcularIR(aliquotaAnualService);
         CalcUserOut usrOut = calcIRSimplesService.generateCSVOut();
 

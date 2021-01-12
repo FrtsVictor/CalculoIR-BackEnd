@@ -10,14 +10,9 @@ public class CalcUserIn extends CalcUser {
 
     private double rendimentoAnualBruto;
 
-    public CalcUserIn(String nome, String cpf, String dataNascimento, double rendimentoAnualBruto) {
-        super(nome, cpf);
+    public CalcUserIn(String nome,  double rendimentoAnualBruto) {
+        super(nome);
         this.rendimentoAnualBruto = rendimentoAnualBruto;
     }
 
-    public CalcUserIn(String nome, String cpf, double rendimentoAnualBruto) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.rendimentoAnualBruto = rendimentoAnualBruto;
-    }
 }
