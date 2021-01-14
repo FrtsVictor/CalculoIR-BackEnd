@@ -1,4 +1,4 @@
-package com.alterdata.calculo.ir.CalculoIRPF.config;
+package com.alterdata.calculo.irpf.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,7 +18,7 @@ public class JwtTokenUtil implements Serializable {
 
 	private static final long serialVersionUID = -2550185165626007488L;
 
-	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60L;
 
 	@Value("${jwt.secret}")
 	private String secret;

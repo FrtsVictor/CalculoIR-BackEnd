@@ -1,4 +1,4 @@
-package com.alterdata.calculo.ir.CalculoIRPF.config;
+package com.alterdata.calculo.irpf.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
