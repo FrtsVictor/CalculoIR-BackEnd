@@ -1,0 +1,60 @@
+Feature:"Ao executar gerar faixaSalarial"
+
+         Scenario: 1 - Faixa salarial 1 IRRF
+             When: inserir faixa salarial 1 valor final IRRF
+             Then: deve retornar faixa salarial 1 aliquota e deducao
+
+             When: inserir valores superioes a faixa salarial 1 valor final IRRF
+             Then: nao deve retornar faixa salarial 1 aliquota e dedudao
+
+
+         Scenario: 2 - Faixa salarial 2 IRRF
+             When: inserir faixa salarial 2 valor inicial IRRF
+             Then: deve retornar faixa salarial 2 aliquota e deducao
+
+             When: inserir faixa salarial 2 valor final IRRF
+             Then: deve retornar faixa salarial 2 aliquota e deducao
+
+             When: inserir valores superiores a faixa salarial 2 valor final IRRF
+             Then: nao deve retornar faixa salarial 2 aliquota e deducao
+
+             When: inserir valores inferiores  a faixa salarial 2 valor inicial IRRF
+             Then: nao deve retornar faixa salarial 2 aliquota e deducao
+
+
+      Scenario: 3 - Faixa salarial 3 IRRF
+             When: inserir valor inicial faixa salarial 3 IRRF
+             Then: deve retornar faixa salarial 3 aliquota e deducao
+
+             When: inserir valor final faixa salarial 3 IRRF
+             Then: deve retornar faixa salarial 3 aliquota e deducao
+
+             When: inserir valores superiores faixa salarial 3 valor final IRRF
+             Then: nao deve retornar faixa salarial 3 aliquota e deducao
+
+             When: inserir valores infeiores faixa salarial 3 valor inicial IRRF
+             Then: nao deve retornar faixa salarial 3 aliquota e deducao
+
+
+      Scenario: 4 - Faixa salarial 4 IRRF
+             When: inserir valor inicial Faixa4 IRRF
+             Then: deve retornar faixa salarial 4 aliquota e deducao
+
+             When: inserir valor final Faixa4 IRRF
+             Then: deve retornar faixa salarial 4 aliquota e deducao
+
+             When: inserir valores superiores Faixa4 valor final IRRF
+             Then: nao deve retornar faixa salarial 4 aliquota e deducao
+
+             When: inserir valores infeiores Faixa4 valor inicial IRRF
+             Then: nao deve retornar faixa salarial 4 aliquota e deducao
+
+Scenario: 4 - Faixa salarial 5 IRRF
+             When: inserir valor inicial Faixa5 IRRF
+             Then: deve retornar faixa salarial 5 aliquota e deducao
+
+             When: inserir valores superiores Faixa4 valor final IRRF
+             Then: deve retornar faixa salarial 5 aliquota e deducao
+
+             When: inserir valores infeiores Faixa5 valor inicial IRRF
+             Then: nao deve retornar faixa salarial 5 aliquota e deducao

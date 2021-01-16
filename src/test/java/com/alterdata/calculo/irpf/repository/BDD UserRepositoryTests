@@ -1,0 +1,17 @@
+Feature:"Persistencia no banco de dados"
+
+     Scenario: Manipulando o banco tabela users
+            When: utilizar metodo save para usuario valido
+            Then: deve persistir usuario no da tabela users
+
+            When: utilizar metodo save para atualizar usuario valido
+            Then: deve persistir e atualizar usuario da tabela users
+
+            When: utilizar metodo delete para remover usuario valido
+            Then: deve remover usuario da tabela users
+
+            When: utilizar metodo findByUsername para username valido
+            Then: deve retornar usuario de acordo com username
+
+            When: utilizar metodo findByUsername para username invalido
+            Then: deve retornar Optional empty
