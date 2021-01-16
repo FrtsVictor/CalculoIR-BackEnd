@@ -1,6 +1,5 @@
 package com.alterdata.calculo.irpf.controllers;
 
-
 import com.alterdata.calculo.irpf.exceptions.UserCVSInValitaionException;
 import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
 import com.alterdata.calculo.irpf.models.inss.UserINSSResponse;
@@ -14,7 +13,6 @@ import com.alterdata.calculo.irpf.services.calculo_mensal_inss.CalcINSSService;
 import com.alterdata.calculo.irpf.services.calculo_mensal_irrf.CalcIRRFService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,7 +24,6 @@ import javax.validation.Valid;
 public class CalcController {
 
     private final CalcIRSimplesService calculoIR;
-
     private final CalcAliqAnualSimplesIRPFService calcAliqAnualService;
     private final CalcINSSService calcINSSService;
     private final CalcIRRFService calcIRRFService;
@@ -48,7 +45,6 @@ public class CalcController {
     @PostMapping("/irrf")
     public ResponseEntity<UserIRRFResponse> generateIRRF(@Valid @RequestBody UserIRRFRequest usrIn) throws UserCVSInValitaionException {
         return ResponseEntity.ok(calcIRRFService.generateIRRF(usrIn));
-   }
-
+    }
 
 }
