@@ -1,14 +1,20 @@
 package com.alterdata.calculo.irpf.controllers;
 
-import com.alterdata.calculo.irpf.config.JwtTokenUtil;
+
 import com.alterdata.calculo.irpf.exceptions.UserCVSInValitaionException;
-import com.alterdata.calculo.irpf.models.*;
-import com.alterdata.calculo.irpf.services.calcAnualIRPF.CalcAliqAnualSimplesIRPFService;
-import com.alterdata.calculo.irpf.services.calcAnualIRPF.CalcIRSimplesService;
-import com.alterdata.calculo.irpf.services.calcINSS.CalcINSSService;
-import com.alterdata.calculo.irpf.services.calcIRRF.CalcIRRFService;
-import com.alterdata.calculo.irpf.services.user.DefaultUserService;
+import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
+import com.alterdata.calculo.irpf.models.inss.UserINSSResponse;
+import com.alterdata.calculo.irpf.models.irpf.UserIRPFRequest;
+import com.alterdata.calculo.irpf.models.irpf.UserIRPFResponse;
+import com.alterdata.calculo.irpf.models.irrf.UserIRRFRequest;
+import com.alterdata.calculo.irpf.models.irrf.UserIRRFResponse;
+import com.alterdata.calculo.irpf.services.calculo_anual_irpf.CalcAliqAnualSimplesIRPFService;
+import com.alterdata.calculo.irpf.services.calculo_anual_irpf.CalcIRSimplesService;
+import com.alterdata.calculo.irpf.services.calculo_mensal_inss.CalcINSSService;
+import com.alterdata.calculo.irpf.services.calculo_mensal_irrf.CalcIRRFService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,34 +26,29 @@ import javax.validation.Valid;
 public class CalcController {
 
     private final CalcIRSimplesService calculoIR;
-    private final DefaultUserService userService;
+
     private final CalcAliqAnualSimplesIRPFService calcAliqAnualService;
     private final CalcINSSService calcINSSService;
     private final CalcIRRFService calcIRRFService;
-    final private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping
-    public UserIRPFOut calcularIR(@Valid @RequestBody UserIRPFIn usrIn) throws UserCVSInValitaionException {
-        userService.validateUserRFPF(usrIn);
+    public ResponseEntity<UserIRPFResponse> calcularIR(@Valid @RequestBody UserIRPFRequest usrIn) throws UserCVSInValitaionException {
         calcAliqAnualService.generateAliquota(usrIn);
-        calculoIR.calcularIR(calcAliqAnualService);
-
-        UserIRPFOut usrOut = calculoIR.generateCSVOut();
+        UserIRPFResponse usrOut = calculoIR.calcularIR(calcAliqAnualService);
         usrOut.setNome(usrIn.getNome());
-        return usrOut;
+        return ResponseEntity.ok(usrOut);
     }
 
     @PostMapping("/inss")
-    public UserINSSOut calcularINSS(@Valid @RequestBody UserINSSIn usrIn) throws UserCVSInValitaionException {
-        userService.validateUser(usrIn);
+    public ResponseEntity<UserINSSResponse> calcularINSS(@Valid @RequestBody UserINSSRequest usrIn) throws UserCVSInValitaionException {
         calcINSSService.generateINSS(usrIn.getSalarioMensalBruto());
-        return calcINSSService.generateUserINSSOut(usrIn);
+        return ResponseEntity.ok(calcINSSService.generateUserINSSOut(usrIn));
     }
 
     @PostMapping("/irrf")
-    public UserIRRFOut generateIRRF(@Valid @RequestBody UserIRRFIn usrIn) throws UserCVSInValitaionException {
-        userService.validateUser(usrIn);
-        return calcIRRFService.generateIRRF(usrIn);
-    }
+    public ResponseEntity<UserIRRFResponse> generateIRRF(@Valid @RequestBody UserIRRFRequest usrIn) throws UserCVSInValitaionException {
+        return ResponseEntity.ok(calcIRRFService.generateIRRF(usrIn));
+   }
+
 
 }

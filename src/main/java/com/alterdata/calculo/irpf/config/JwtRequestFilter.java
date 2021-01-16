@@ -1,6 +1,6 @@
 package com.alterdata.calculo.irpf.config;
 
-import com.alterdata.calculo.irpf.services.JwtUserDetailsService;
+import com.alterdata.calculo.irpf.services.jwt.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
