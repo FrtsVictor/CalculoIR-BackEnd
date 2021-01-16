@@ -1,4 +1,4 @@
-package com.alterdata.calculo.irpf.models;
+package com.alterdata.calculo.irpf.models.inss;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserINSSOut {
+public class UserINSSResponse {
 
     private String nome;
     private double salarioMensalBruto;
