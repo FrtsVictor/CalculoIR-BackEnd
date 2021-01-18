@@ -1,10 +1,10 @@
 package com.alterdata.calculo.irpf.exceptions;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-@Getter
 @SuperBuilder
+@Data
 public class ValidationExceptionDetails extends ExceptionDetails{
     private final String fields;
     private final String fieldsMessage;
