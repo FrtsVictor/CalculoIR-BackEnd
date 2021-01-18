@@ -1,0 +1,4 @@
+Feature:"Ao executar CalculoIRPF"
+    Scenario 1 - Gerar calculoIRPF
+                 When: inserir valores validos
+                 Then: deve retornar calculo IRPF

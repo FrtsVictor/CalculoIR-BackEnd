@@ -1,0 +1,17 @@
+Feature:"Criando UserIRPFRequest"
+
+     Scenario: 1 - Validacao para campo nome
+            When: inserir nome valido
+            Then: nao deve lancar ValidationException
+
+            When: inserir nome vazio
+            Then: deve lancar ValidationException
+
+            When: inserir nome nulo
+            Then: deve lancar ValidationException
+
+            When: inserir nome menor que 3 digitos
+            Then: deve lancar ValidationException
+
+            When: inserir nome maior que 80 digitos
+            Then: deve lancar ValidationException
