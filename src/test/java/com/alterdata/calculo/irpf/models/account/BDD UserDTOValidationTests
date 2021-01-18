@@ -32,7 +32,7 @@ Feature:"Criando UserDTO"
             When: inserir username maior que 50 digitos
             Then: deve lancar ValidationException
 
-     Scenario: 2 - Validacao para campo password
+     Scenario: 3 - Validacao para campo password
             When: inserir password valido
             Then: nao deve lancar ValidationException
 

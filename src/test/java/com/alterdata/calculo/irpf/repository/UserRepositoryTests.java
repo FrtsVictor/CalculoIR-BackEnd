@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.Optional;
 
 @DataJpaTest
-@DisplayName("Executando testes userRepository")
+@DisplayName("Executando testes unitarios persistencia UserRepository")
 @Log4j2
 class UserRepositoryTests {
 

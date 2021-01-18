@@ -1,6 +1,6 @@
 Feature:"Ao executar Aliquota generateAliquota"
 
-      Scenario: 1 - Faixa salarial 1 IRPF
+      Scenario: 1 - Gerar Faixa salarial 1 IRPF
              When: inserir faixa salarial 1 valor final IRPF
              Then: deve retornar faixa salarial 1 aliquota e deducao
 
@@ -8,7 +8,7 @@ Feature:"Ao executar Aliquota generateAliquota"
              Then: nao deve retornar faixa salarial 1 aliquota e dedudao
 
 
-      Scenario: 2 - Faixa salarial 2 IRPF
+      Scenario: 2 - Gerar Faixa salarial 2 IRPF
              When: inserir faixa salarial 2 valor inicial IRPF
              Then: deve retornar faixa salarial 2 aliquota e deducao
 
@@ -22,7 +22,7 @@ Feature:"Ao executar Aliquota generateAliquota"
              Then: nao deve retornar faixa salarial 2 aliquota e deducao
 
 
-      Scenario: 3 - Faixa salarial 3 IRPF
+      Scenario: 3 - Gerar Faixa salarial 3 IRPF
              When: inserir valor inicial faixa salarial 3 IRPF
              Then: deve retornar faixa salarial 3 aliquota e deducao
 
@@ -36,7 +36,7 @@ Feature:"Ao executar Aliquota generateAliquota"
              Then: nao deve retornar faixa salarial 3 aliquota e deducao
 
 
-      Scenario: 4 - Faixa salarial 4 IRPF
+      Scenario: 4 - Gerar Faixa salarial 4 IRPF
              When: inserir valor inicial Faixa4 IRPF
              Then: deve retornar faixa salarial 4 aliquota e deducao
 
@@ -49,7 +49,7 @@ Feature:"Ao executar Aliquota generateAliquota"
              When: inserir valores infeiores Faixa4 valor inicial IRPF
              Then: nao deve retornar faixa salarial 4 aliquota e deducao
 
-      Scenario: 4 - Faixa salarial 5 IRPF
+      Scenario: 4 - Gerar Faixa salarial 5 IRPF
              When: inserir valor inicial Faixa5 IRPF
              Then: deve retornar faixa salarial 5 aliquota e deducao
 

@@ -1,14 +1,14 @@
 package com.alterdata.calculo.irpf.service.calculo_inss;
 
 import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
-import com.alterdata.calculo.irpf.services.calculo_mensal_inss.CalcINSSService;
+import com.alterdata.calculo.irpf.services.calculo_mensal.CalcINSSService;
 import org.junit.jupiter.api.*;
 
-import static com.alterdata.calculo.irpf.services.calculo_mensal_inss.BaseMensalAliquotaINSS.*;
+import static com.alterdata.calculo.irpf.services.calculo_mensal.constants.AliquotaMensalINSS.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Executando testes CalcINSS generateINSS ")
+@DisplayName("Executando testes unitarios CalcINSS generateINSS()")
 class GenerateINSSTests {
 
     private TestInfo testInfo;
@@ -35,21 +35,21 @@ class GenerateINSSTests {
     void deve_retornar_teto_inss(){
         double salarioBruto = 10000;
 
-        UserINSSRequest user = new UserINSSRequest("victor", salarioBruto);
+        UserINSSRequest user = new UserINSSRequest("Test", salarioBruto);
         double inss = calcINSSService.generateINSS(user.getSalarioMensalBruto());
 
-        assertEquals(tetoINSS, calcINSSService.getInss());
+        assertEquals(TETO_INSS.value(), calcINSSService.getInss());
     }
 
     @Test
     @DisplayName("Nao deve retornar teto para desconto inss")
     void nao_deve_retornar_teto_inss(){
-        double salarioBruto = tetoINSS - 0.1;
+        double salarioBruto = TETO_INSS.value() - 0.1;
 
-        UserINSSRequest user = new UserINSSRequest("victor", salarioBruto);
+        UserINSSRequest user = new UserINSSRequest("Test", salarioBruto);
         double inss = calcINSSService.generateINSS(user.getSalarioMensalBruto());
 
-        assertNotEquals(tetoINSS, calcINSSService.getInss());
+        assertNotEquals(TETO_INSS.value(), calcINSSService.getInss());
     }
 
 
@@ -58,7 +58,7 @@ class GenerateINSSTests {
     void deve_retornar_calculo_inss(){
         double salarioBruto = 2200;
 
-        UserINSSRequest user = new UserINSSRequest("victor", salarioBruto);
+        UserINSSRequest user = new UserINSSRequest("Test", salarioBruto);
         double inss = calcINSSService.generateINSS(user.getSalarioMensalBruto());
         assertNotNull(inss);
         assertThat(inss).isNotZero();

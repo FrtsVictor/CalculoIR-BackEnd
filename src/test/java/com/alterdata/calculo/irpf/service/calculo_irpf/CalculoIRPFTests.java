@@ -2,12 +2,12 @@ package com.alterdata.calculo.irpf.service.calculo_irpf;
 
 import com.alterdata.calculo.irpf.models.irpf.UserIRPFRequest;
 import com.alterdata.calculo.irpf.models.irpf.UserIRPFResponse;
-import com.alterdata.calculo.irpf.services.calculo_anual_irpf.CalcAliqAnualSimplesIRPFService;
-import com.alterdata.calculo.irpf.services.calculo_anual_irpf.CalcIRSimplesService;
+import com.alterdata.calculo.irpf.services.calculo_anual.CalcAliqAnualSimplesIRPFService;
+import com.alterdata.calculo.irpf.services.calculo_anual.CalcIRSimplesService;
 import org.junit.jupiter.api.*;
 
-@DisplayName("Executando testes CalculoImpostoRenda")
-public class CalculoIRPFTests {
+@DisplayName("Executando testes unitarios CalcIRPF generateIR()")
+class CalculoIRPFTests {
 
         private TestInfo testInfo;
         private TestReporter testReporter;
@@ -34,9 +34,9 @@ public class CalculoIRPFTests {
 
     @Test
     @DisplayName("Deve retornar UserIRPFResponse para valores de calculo validos")
-    public void deve_retornar_UserIRPFOut_para_valores_validos() {
+    void deve_retornar_UserIRPFOut_para_valores_validos() {
         double rendimentoAnualBruto = 40000;
-        UserIRPFRequest usrIn= new UserIRPFRequest("Victor" ,rendimentoAnualBruto);
+        UserIRPFRequest usrIn= new UserIRPFRequest("Test" ,rendimentoAnualBruto);
 
         aliquotaAnualService.generateAliquota(usrIn);
         UserIRPFResponse usrOut = calcIRSimplesService.calcularIR(aliquotaAnualService);

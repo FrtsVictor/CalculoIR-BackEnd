@@ -1,6 +1,6 @@
 Feature:"Executando CalcINSS generateFaixaSalarial"
 
-    Scenario: 1 - Faixa salarial 1 INSS
+    Scenario: 1 - Gerar Faixa salarial 1 INSS
         When: inserir faixa 1 valor final INSS
         Then: deve retornar faixa 1 aliquota e deducao
         
@@ -8,7 +8,7 @@ Feature:"Executando CalcINSS generateFaixaSalarial"
         Then: nao deve retornar faixa 1 aliquota e deducao
 
 
-    Scenario: 2 - Faixa salarial 2 INSS
+    Scenario: 2 - Gerar Faixa salarial 2 INSS
         When: inserir valor  faixa 2 valor inicial INSS
         Then: deve retornar faixa 2 valor aliquota e deducao INSS
         
@@ -22,7 +22,7 @@ Feature:"Executando CalcINSS generateFaixaSalarial"
         Then: nao deve retornar faixa 2 aliquota e deducao
 
 
- Scenario: 3 - Faixa salarial 3 INSS
+ Scenario: 3 - Gerar Faixa salarial 3 INSS
         When: inserir faixa 3 valor inicial INSS
         Then: deve retornar faixa 3 aliquota e deducao INSS
         
@@ -36,7 +36,7 @@ Feature:"Executando CalcINSS generateFaixaSalarial"
         Then: nao deve retornar faixa 3 aliquota e deducao
 
 
- Scenario: 4 - Faixa salarial 4 INSS
+ Scenario: 4 - Gerar Faixa salarial 4 INSS
         When: inserir faixa 4 valor inicial INSS
         Then: deve retornar faixa 4 aliquota e deducao INSS
         

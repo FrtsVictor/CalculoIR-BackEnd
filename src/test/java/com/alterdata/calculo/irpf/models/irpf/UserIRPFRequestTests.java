@@ -15,7 +15,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("Executando testes validacao de campos UserIRRFIn")
+@DisplayName("Executando testes unitarios validacao de campos UserIRRFIn")
 public class UserIRPFRequestTests {
 
     private Validator validator;

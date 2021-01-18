@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("Executando testes validacao de campos User")
+@DisplayName("Executando testes unitarios validacao de campos User")
 class UserValidationTests {
 
     private Validator validator;

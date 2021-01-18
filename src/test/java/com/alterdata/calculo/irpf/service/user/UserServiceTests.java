@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
-public class UserServiceTests {
+@DisplayName("Executando testes unitarios UserService")
+class UserServiceTests {
 
     @InjectMocks
     private UserService userServiceMock;
@@ -57,7 +58,7 @@ public class UserServiceTests {
     void deve_retornar_lista_paginada_de_usuarios() {
         String expectedName = UserCreator.createValidUser().getNome();
 
-        Page<User> userPage = userServiceMock.listALl(PageRequest.of(1,1));
+        Page<User> userPage = userServiceMock.listALl(PageRequest.of(1, 1));
 
         Assertions.assertThat(userPage).isNotNull();
         Assertions.assertThat(userPage.toList())
@@ -73,7 +74,6 @@ public class UserServiceTests {
 
         User user = userServiceMock.findByIdOrThrowBadRequestException(1);
 
-        Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user.getId()).isEqualTo(expectedId);
     }
@@ -100,16 +100,9 @@ public class UserServiceTests {
     }
 
     @Test
-    @DisplayName("replace deve atualizar user quando sucesso")
-    void deve_atualizar_user_quando_sucesso() {
-        Assertions.assertThatCode(()-> userServiceMock.replace(UserRequestCreator.createUserRequestBody()))
-                .doesNotThrowAnyException();
-    }
-
-    @Test
     @DisplayName("delete deve remover user quando sucesso")
     void deve_deletar_user_quando_sucesso() {
-        Assertions.assertThatCode(()-> userServiceMock.delete(1))
+        Assertions.assertThatCode(() -> userServiceMock.delete(1))
                 .doesNotThrowAnyException();
     }
 
@@ -120,7 +113,7 @@ public class UserServiceTests {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(BadRequestException.class)
-                .isThrownBy(()-> userServiceMock.findByIdOrThrowBadRequestException(1));
+                .isThrownBy(() -> userServiceMock.findByIdOrThrowBadRequestException(1));
     }
 
 
@@ -131,9 +124,8 @@ public class UserServiceTests {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(BadRequestException.class)
-                .isThrownBy(()-> userServiceMock.findByUserNameOrThrowsBadRequestException("asd"));
+                .isThrownBy(() -> userServiceMock.findByUserNameOrThrowsBadRequestException("asd"));
     }
-
 
 
 }
