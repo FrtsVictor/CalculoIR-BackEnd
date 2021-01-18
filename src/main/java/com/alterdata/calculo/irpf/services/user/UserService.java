@@ -1,9 +1,10 @@
 package com.alterdata.calculo.irpf.services.user;
 
 import com.alterdata.calculo.irpf.config.JwtTokenUtil;
-import com.alterdata.calculo.irpf.models.account.UserRequest;
 import com.alterdata.calculo.irpf.exceptions.BadRequestException;
 import com.alterdata.calculo.irpf.models.account.User;
+import com.alterdata.calculo.irpf.models.account.UserPutRequest;
+import com.alterdata.calculo.irpf.models.account.UserRequest;
 import com.alterdata.calculo.irpf.models.jwt.JwtRequest;
 import com.alterdata.calculo.irpf.models.jwt.JwtResponse;
 import com.alterdata.calculo.irpf.repositories.UserRepository;
@@ -20,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Component
@@ -43,6 +43,10 @@ public class UserService {
         }
     }
 
+    public Page<User> listALl(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
     public JwtResponse generateToken(JwtRequest authenticationRequest) {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
@@ -58,13 +62,13 @@ public class UserService {
     @Transactional
     public User save(UserRequest user) {
         Optional<User> userAlreadyRegistered = userRepository.findByUsername(user.getUsername());
-        if(userAlreadyRegistered.isPresent()){
+        if (userAlreadyRegistered.isPresent()) {
             throw new BadRequestException("User already registered");
         }
         return this.userRepository.save(saveUserRequestToUserWithPassEncoder(user));
     }
 
-    private User saveUserRequestToUserWithPassEncoder(UserRequest user){
+    private User saveUserRequestToUserWithPassEncoder(UserRequest user) {
         return User.builder()
                 .nome(user.getNome())
                 .username(user.getUsername())
@@ -72,31 +76,23 @@ public class UserService {
                 .build();
     }
 
-    public User findByUserNameOrThrowsBadRequestException(String username){
+    public User findByUserNameOrThrowsBadRequestException(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(()-> new BadRequestException("User not found"));
+                .orElseThrow(() -> new BadRequestException("User not found"));
     }
 
     public void delete(Integer id) {
         userRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
-    public void replace(UserRequest userRequest) {
+    public void replace(UserPutRequest userRequest) {
         User updateUser = findByUserNameOrThrowsBadRequestException(userRequest.getUsername());
-
-        if(!userRequest.getPassword().isBlank() || userRequest.getPassword().equals(null) ){
-            updateUser.setPassword(bcryptEncoder.encode(userRequest.getPassword()));
-        }
-
-        if(!userRequest.getNome().isBlank() || userRequest.getNome().equals(null) ){
-            updateUser.setNome(userRequest.getNome());
-        }
+        updateUser.setNome(userRequest.getNome());
+        updateUser.setUsername(userRequest.getUsername());
+        updateUser.setSalarioMensal(userRequest.getSalarioMensal());
+        updateUser.setDependentes(userRequest.getDependentes());
 
         userRepository.save(updateUser);
-    }
-
-    public Page<User> listALl(Pageable pageable) {
-        return userRepository.findAll(pageable);
     }
 
 }
