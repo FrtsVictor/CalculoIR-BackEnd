@@ -8,7 +8,10 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class UserInSalarioMensal {
 
     @NotEmpty
@@ -17,10 +20,7 @@ public abstract class UserInSalarioMensal {
     protected double salarioMensalBruto;
 
     protected boolean validateSalarioBruto(UserInSalarioMensal usrIn) {
-        if (usrIn.getSalarioMensalBruto() < 1) {
-            return false;
-        }
-        return true;
+        return usrIn.getSalarioMensalBruto() < 1;
     }
 
 }
