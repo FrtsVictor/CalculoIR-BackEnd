@@ -6,7 +6,7 @@ import lombok.Data;
 @Data @AllArgsConstructor
 public class UserCVSInValitaionException extends Exception {
 
-    private String error;
-    private String message;
+    private final String error;
+    private final String message;
 
 }
