@@ -1,0 +1,32 @@
+Feature: Manipular rotar usuario
+
+     Scenario: 1 - Registrar usuario
+            When: salvar usuario valido
+            Then: nao deve lancar BadRequestException
+
+     Scenario: 2 - Encontrar usuario por username
+            Given: com JWT Bearer Token
+            When: inserir username valido
+            Then: deve retornar user por username
+
+            Given: sem JWT Bearer Token
+            When: inserir username valido ou invalido
+            Then: deve lancar status 401 Unauthorized
+
+     Scenario: 4 - Encontrar usuario por id
+            Given: com JWT Bearer Token
+            When: inserir id valido
+            Then: deve retornar user por id
+
+            Given: sem JWT Bearer Token
+            When: inserir id valido ou invalido
+            Then: deve lancar status 401 Unauthorized
+
+     Scenario:  - Remover usuario por id
+            Given: com JWT Bearer Token
+            When: inserir id valido
+            Then: deve retornar user por id
+
+            Given: sem JWT Bearer Token
+            When: inserir id valido ou invalido
+            Then: deve lancar status 401 Unauthorized
