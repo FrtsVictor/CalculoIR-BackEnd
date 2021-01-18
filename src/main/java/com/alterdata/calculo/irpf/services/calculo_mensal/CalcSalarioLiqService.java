@@ -15,7 +15,7 @@ public class CalcSalarioLiqService {
     @Autowired
     CalcIRRFService calcIRRF;
 
-    public UserSalarioLiqResponse generateIRRF(UserSalarioLiqRequest user) {
+    public UserSalarioLiqResponse generateSalarioLiq(UserSalarioLiqRequest user) {
         UserIRRFRequest irrfReq = new UserIRRFRequest();
         irrfReq.setNome(user.getNome());
         irrfReq.setSalarioMensalBruto(user.getSalarioMensalBruto());
@@ -40,6 +40,7 @@ public class CalcSalarioLiqService {
                 .parcelaADeduzir(irrfResp.getParcelaADeduzir())
                 .irrf(irrfResp.getIRRF())
                 .valorTotalDescontos(total)
+                .outrosDescontos(user.getOutrosDescontos())
                 .salarioLiquido(salarioLiq)
                 .build();
     }

@@ -52,7 +52,7 @@ public class CalcController {
 
     @PostMapping("/salario-liq")
     public ResponseEntity<UserSalarioLiqResponse> generateSalarioLiq(@Valid @RequestBody UserSalarioLiqRequest usrIn)  {
-        return ResponseEntity.ok(calcSalarioLiqService.generateIRRF(usrIn));
+        return ResponseEntity.ok(calcSalarioLiqService.generateSalarioLiq(usrIn));
     }
 
 }
