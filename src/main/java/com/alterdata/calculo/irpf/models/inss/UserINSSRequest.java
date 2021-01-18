@@ -1,11 +1,11 @@
 package com.alterdata.calculo.irpf.models.inss;
 
 import com.alterdata.calculo.irpf.models.default_users.UserInSalarioMensal;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Data
 public class UserINSSRequest extends UserInSalarioMensal {
 
 

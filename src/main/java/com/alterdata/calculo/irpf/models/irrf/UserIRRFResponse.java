@@ -1,8 +1,8 @@
 package com.alterdata.calculo.irpf.models.irrf;
+
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

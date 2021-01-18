@@ -1,8 +1,8 @@
 package com.alterdata.calculo.irpf.models.irpf;
 
 import com.alterdata.calculo.irpf.models.default_users.UserSalarioAnual;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
@@ -13,10 +13,7 @@ public class UserIRPFRequest extends UserSalarioAnual {
     }
 
     public boolean validateRendimentoAnualBruto(UserIRPFRequest usrIn) {
-        if (usrIn.getRendimentoAnualBruto() < 1000) {
-            return true;
-        }
-        return false;
+        return usrIn.getRendimentoAnualBruto() < 1000;
     }
 
 }
