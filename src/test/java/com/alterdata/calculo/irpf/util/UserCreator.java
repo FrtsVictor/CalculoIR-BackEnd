@@ -6,16 +6,16 @@ public class UserCreator {
 
     public static User createUserToBeSaved() {
         return User.builder()
-                .nome("Victor")
-                .username("testUser")
+                .nome("Test")
+                .username("testUsername")
                 .password("123321")
                 .build();
     }
 
     public static User createValidUser() {
         return User.builder()
-                .nome("Victor")
-                .username("testUser")
+                .nome("Test")
+                .username("testUsername")
                 .password("123321")
                 .id(1)
                 .build();
@@ -23,8 +23,8 @@ public class UserCreator {
 
     public static User createValidUpdatedUser() {
         return User.builder()
-                .nome("Victor")
-                .username("testUser 2")
+                .nome("Test")
+                .username("testUsername 2")
                 .password("123321")
                 .id(1)
                 .build();
