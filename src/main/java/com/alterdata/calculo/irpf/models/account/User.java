@@ -22,14 +22,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@NotEmpty(message = "username mandatory")
 	@Size(min = 5 , max = 50)
 	private String username;
 
+	@NotEmpty
 	@JsonIgnore
 	@Size(min = 5)
 	private String password;
 
+	@NotEmpty
 	@Size(min = 3, max = 80)
 	private String nome;
+
+	private double salarioMensal;
+
+	private double dependentes;
+
+	private double pensaoAlimenticia;
 
 }
