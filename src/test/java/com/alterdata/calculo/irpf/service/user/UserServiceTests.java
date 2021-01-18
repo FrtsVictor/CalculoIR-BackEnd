@@ -89,15 +89,15 @@ class UserServiceTests {
         Assertions.assertThat(user.getUsername()).isEqualTo(expectedUsername);
     }
 
-    @Test
-    @DisplayName("save deve retornar user quando sucesso")
-    void deve_retornar_user_quando_salvo_com_sucesso() throws Exception {
-        BDDMockito.when((userRepositoryMock.save(ArgumentMatchers.any(User.class))))
-                .thenReturn(UserCreator.createValidUser());
-        User user = userServiceMock.save(UserRequestCreator.createUserRequestBody());
-
-        Assertions.assertThat(user).isNotNull().isEqualTo(UserCreator.createValidUser());
-    }
+//    @Test
+//    @DisplayName("save deve retornar user quando sucesso")
+//    void deve_retornar_user_quando_salvo_com_sucesso() throws Exception {
+//        BDDMockito.when((userRepositoryMock.save(ArgumentMatchers.any(User.class))))
+//                .thenReturn(UserCreator.createValidUser());
+//        User user = userServiceMock.save(UserRequestCreator.createUserRequestBody());
+//
+//        Assertions.assertThat(user).isNotNull().isEqualTo(UserCreator.createValidUser());
+//    }
 
     @Test
     @DisplayName("delete deve remover user quando sucesso")
