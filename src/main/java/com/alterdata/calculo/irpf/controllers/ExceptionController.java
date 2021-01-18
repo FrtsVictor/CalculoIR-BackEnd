@@ -3,7 +3,6 @@ package com.alterdata.calculo.irpf.controllers;
 import com.alterdata.calculo.irpf.exceptions.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
