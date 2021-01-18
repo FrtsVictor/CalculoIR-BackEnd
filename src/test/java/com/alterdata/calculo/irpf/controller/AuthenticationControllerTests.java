@@ -1,6 +1,6 @@
 package com.alterdata.calculo.irpf.controller;
 
-import com.alterdata.calculo.irpf.controllers.JwtAuthenticationController;
+import com.alterdata.calculo.irpf.controllers.UserController;
 import com.alterdata.calculo.irpf.models.account.User;
 import com.alterdata.calculo.irpf.models.account.UserRequest;
 import com.alterdata.calculo.irpf.services.user.UserService;
@@ -24,10 +24,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-public class AuthenticationControllerTests {
+@DisplayName("Executando testes unitarios AutenticationController")
+class AuthenticationControllerTests {
 
     @InjectMocks
-    private JwtAuthenticationController jwtController;
+    private UserController jwtController;
 
     @Mock
     private UserService userServiceMock;
@@ -47,13 +48,13 @@ public class AuthenticationControllerTests {
         BDDMockito.when((userServiceMock.save(ArgumentMatchers.any(UserRequest.class))))
                 .thenReturn(UserCreator.createValidUser());
 
-        BDDMockito.doNothing().when(userServiceMock).replace(ArgumentMatchers.any(UserRequest.class));
+//        BDDMockito.doNothing().when(userServiceMock).replace(ArgumentMatchers.any(UserRequest.class));
         BDDMockito.doNothing().when(userServiceMock).delete(ArgumentMatchers.anyInt());
 
     }
 
     @Test
-    @DisplayName("listALl deve retornar lista paginada de users")
+    @DisplayName("listAll deve retornar lista paginada de users")
     void deve_retornar_lista_paginada_de_usuarios() {
         String expectedName = UserCreator.createValidUser().getNome();
 
@@ -73,7 +74,6 @@ public class AuthenticationControllerTests {
 
         User user = jwtController.findById(1).getBody();
 
-        Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user).isNotNull();
         Assertions.assertThat(user.getId()).isEqualTo(expectedId);
     }
@@ -97,18 +97,18 @@ public class AuthenticationControllerTests {
         Assertions.assertThat(user).isNotNull().isEqualTo(UserCreator.createValidUser());
     }
 
-    @Test
-    @DisplayName("replace deve atualizar user quando sucesso")
-    void deve_atualizar_user_quando_sucesso() {
-
-        Assertions.assertThatCode(()-> jwtController.updateUser(UserRequestCreator.createUserRequestBody()))
-                .doesNotThrowAnyException();
-
-        ResponseEntity<Void> entity = jwtController.updateUser(UserRequestCreator.createUserRequestBody());
-
-        Assertions.assertThat(entity).isNotNull();
-        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-    }
+//    @Test
+//    @DisplayName("replace deve atualizar user quando sucesso")
+//    void deve_atualizar_user_quando_sucesso() {
+//
+//        Assertions.assertThatCode(()-> jwtController.updateUser(UserRequestCreator.createUserRequestBody()))
+//                .doesNotThrowAnyException();
+//
+//        ResponseEntity<Void> entity = jwtController.updateUser(UserRequestCreator.createUserRequestBody());
+//
+//        Assertions.assertThat(entity).isNotNull();
+//        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+//    }
 
     @Test
     @DisplayName("delete deve remover user quando sucesso")
@@ -122,23 +122,4 @@ public class AuthenticationControllerTests {
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
-
-
-//    @Test
-//    @DisplayName("getALl deve retorna lista paginada vazia caso nao tenha usuarios cadastrados")
-//    void deve_retornar_lista_paginada_vazia_quando_nao_ouver_users() {
-//        PageImpl<User> userPage = new PageImpl<>();
-//        BDDMockito.when(userServiceMock.listALl(ArgumentMatchers.any()))
-//                .thenReturn(userPage);
-//
-//        Page<User> userPages = jwtController.getALl(null).getBody();
-//
-//        Assertions.assertThat(userPages).isEmpty();
-//        Assertions.assertThat(userPages.toList())
-//                .hasSize(0);
-////        Assertions.assertThat(userPage.toList().get(0).getNome()).isEqualTo(expectedName);
-//
-//    }
-
-
 }
