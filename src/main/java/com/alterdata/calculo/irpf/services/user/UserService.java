@@ -2,6 +2,7 @@ package com.alterdata.calculo.irpf.services.user;
 
 import com.alterdata.calculo.irpf.config.JwtTokenUtil;
 import com.alterdata.calculo.irpf.exceptions.BadRequestException;
+import com.alterdata.calculo.irpf.exceptions.JavaxtestinsException;
 import com.alterdata.calculo.irpf.models.account.User;
 import com.alterdata.calculo.irpf.models.account.UserPutRequest;
 import com.alterdata.calculo.irpf.models.account.UserRequest;
@@ -21,7 +22,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +37,8 @@ public class UserService {
     private final JwtUserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
+    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
 
     public void authenticate(String username, String password) throws Exception {
         try {
@@ -43,15 +50,17 @@ public class UserService {
         }
     }
 
-    public Page<User> listALl(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
-
     public JwtResponse generateToken(JwtRequest authenticationRequest) {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return new JwtResponse(token);
+    }
+
+
+
+    public Page<User> listALl(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public User findByIdOrThrowBadRequestException(Integer id) {
@@ -87,6 +96,7 @@ public class UserService {
 
     public void replace(UserPutRequest userRequest) {
         User updateUser = findByUserNameOrThrowsBadRequestException(userRequest.getUsername());
+
         updateUser.setNome(userRequest.getNome());
         updateUser.setUsername(userRequest.getUsername());
         updateUser.setSalarioMensal(userRequest.getSalarioMensal());
@@ -95,4 +105,18 @@ public class UserService {
         userRepository.save(updateUser);
     }
 
+    public Object validateResponse(Object entity){
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Object>> violations = validator.validate(entity);
+
+        if (!violations.isEmpty()){
+            Map<Path, String> error = new HashMap<>();
+
+            for (ConstraintViolation<Object> violation : violations) {
+                error.put(violation.getPropertyPath(), violation.getMessage());
+            }
+            throw new JavaxtestinsException(error);
+        }
+        return Object.class;
+    }
 }
