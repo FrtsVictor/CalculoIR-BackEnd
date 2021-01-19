@@ -2,10 +2,9 @@ package com.alterdata.calculo.irpf.service.user;
 
 import com.alterdata.calculo.irpf.exceptions.BadRequestException;
 import com.alterdata.calculo.irpf.models.account.User;
+import com.alterdata.calculo.irpf.models.util.UserCreator;
 import com.alterdata.calculo.irpf.repositories.UserRepository;
 import com.alterdata.calculo.irpf.services.user.UserService;
-import com.alterdata.calculo.irpf.util.UserCreator;
-import com.alterdata.calculo.irpf.util.UserRequestCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,9 +38,12 @@ class UserServiceTests {
 
     @BeforeEach
     void setup() {
-        PageImpl<User> userPage = new PageImpl<User>(List.of(UserCreator.createValidUser()));
+        PageImpl<User> userPage = new PageImpl<>(List.of(UserCreator.createValidUser()));
         BDDMockito.when(userRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(userPage);
+
+        BDDMockito.when((userRepositoryMock.save(ArgumentMatchers.any(User.class))))
+                .thenReturn(UserCreator.createValidUser());
 
         BDDMockito.when((userRepositoryMock.findById(ArgumentMatchers.anyInt())))
                 .thenReturn(Optional.of(UserCreator.createValidUser()));
@@ -92,9 +94,14 @@ class UserServiceTests {
 //    @Test
 //    @DisplayName("save deve retornar user quando sucesso")
 //    void deve_retornar_user_quando_salvo_com_sucesso() throws Exception {
+//        User user = UserCreator.createValidUser();
+//        user.setUsername("Testzin");
 //        BDDMockito.when((userRepositoryMock.save(ArgumentMatchers.any(User.class))))
-//                .thenReturn(UserCreator.createValidUser());
-//        User user = userServiceMock.save(UserRequestCreator.createUserRequestBody());
+//                .thenReturn(user);
+//
+//        UserRequest rest = UserRequestCreator.createUserRequestBody();
+//        rest.setUsername("Testzin");
+//        User users = userServiceMock.save(rest);
 //
 //        Assertions.assertThat(user).isNotNull().isEqualTo(UserCreator.createValidUser());
 //    }
