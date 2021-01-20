@@ -1,6 +1,5 @@
 package com.alterdata.calculo.irpf.models.inss;
 
-import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -14,8 +13,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("Executando testes unitarios validacao de campos UserIRRFIn")
-public class UserINSSRequestTests {
+@DisplayName("Executando testes unitarios validacao de campos UserINNSRequest")
+public class InssRequestValidationTests {
 
     private Validator validator;
 
@@ -26,13 +25,13 @@ public class UserINSSRequestTests {
     }
 
     @Nested
-    @DisplayName("Testes para validação do campo nome para UserINSSRequest")
-    class ValidacaoNome{
+    @DisplayName("Testes para validação do campo nome InssRequest")
+    class ValidacaoCampoNome {
 
         @Test()
         @DisplayName("Nao deve lancar ValidationException para nome valido")
         void nao_deve_lancar_ValidationException_para_nome_valido() {
-            UserINSSRequest usr = new UserINSSRequest();
+            InssRequest usr = new InssRequest();
             usr.setNome("teste");
             usr.setSalarioMensalBruto(5000);
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -43,7 +42,7 @@ public class UserINSSRequestTests {
         @Test()
         @DisplayName("Deve lancar ValidationException para nome vazio")
         void deve_lancar_ValidationException_para_nome_vazio() {
-            UserINSSRequest usr = new UserINSSRequest();
+            InssRequest usr = new InssRequest();
             usr.setNome("");
             usr.setSalarioMensalBruto(5000);
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -55,7 +54,7 @@ public class UserINSSRequestTests {
         @Test()
         @DisplayName("Deve lancar ValidationException para nome nulo")
         void deve_lancar_ValidationException_para_nome_nulo() {
-            UserINSSRequest usr = new UserINSSRequest();
+            InssRequest usr = new InssRequest();
             usr.setNome(null);
             usr.setSalarioMensalBruto(5000);
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -66,8 +65,8 @@ public class UserINSSRequestTests {
 
         @Test()
         @DisplayName("Deve lancar ValidationException para nome menor que 3 digitos")
-        void deve_lancar_ValidationException_para_nome_menor_que_min() {
-            UserINSSRequest usr = new UserINSSRequest();
+        void deve_lancar_ValidationException_para_nome_menor_que_3_digitos() {
+            InssRequest usr = new InssRequest();
             usr.setNome("te");
             usr.setSalarioMensalBruto(5000);
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -77,8 +76,8 @@ public class UserINSSRequestTests {
 
         @Test()
         @DisplayName("Deve lancar ValidationException para nome maior que 80 digitos")
-        void deve_lancar_ValidationException_para_nome_maior_max() {
-            UserINSSRequest usr = new UserINSSRequest();
+        void deve_lancar_ValidationException_para_nome_maior_que_80_digitos() {
+            InssRequest usr = new InssRequest();
             usr.setNome("Lorem Ipsum is simply dummy text of the printing and typesettings standard dummy text ever ");
             usr.setSalarioMensalBruto(5000);
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -86,6 +85,54 @@ public class UserINSSRequestTests {
             assertFalse(violations.isEmpty());
         }
     }
+
+
+    @Nested
+    @DisplayName("Testes para validação do campo salarioMensal para InssRequest")
+    class ValidacaoCampoSalario {
+
+        @Test()
+        @DisplayName("Nao deve lancar ValidationException para salario valido")
+        void nao_deve_lancar_ValidationException_para_salario_valido() {
+            InssRequest usr = new InssRequest();
+            usr.setNome("Lorem Ipsutext ever");
+            usr.setSalarioMensalBruto(1);
+
+            Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+            Set violations = validator.validate(usr);
+
+            assertTrue(violations.isEmpty());
+        }
+
+        @Test()
+        @DisplayName("Deve lancar ValidationException para salario igual 0")
+        void deve_lancar_ValidationException_para_salario_igual_zero() {
+            InssRequest usr = new InssRequest();
+            usr.setNome("Lorem Ipsutext ever");
+            usr.setSalarioMensalBruto(0);
+
+            Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+            Set violations = validator.validate(usr);
+
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test()
+        @DisplayName("Deve lancar ValidationException para salario negativo")
+        void deve_lancar_ValidationException_para_salario_negativo() {
+            InssRequest usr = new InssRequest();
+            usr.setNome("username");
+            usr.setSalarioMensalBruto(-1);
+
+            Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+            Set violations = validator.validate(usr);
+
+            assertFalse(violations.isEmpty());
+        }
+
+
+    }
+
 
 
 }
