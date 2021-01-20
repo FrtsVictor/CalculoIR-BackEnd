@@ -1,19 +1,17 @@
 package com.alterdata.calculo.irpf.services.calculo_mensal;
 
-import static com.alterdata.calculo.irpf.services.calculo_mensal.constants.AliquotaMensalINSS.*;
-
-import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
-import com.alterdata.calculo.irpf.models.inss.UserINSSResponse;
+import com.alterdata.calculo.irpf.models.inss.InssRequest;
+import com.alterdata.calculo.irpf.models.inss.InssResponse;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 
-@Getter
+import static com.alterdata.calculo.irpf.services.calculo_mensal.constants.AliquotaMensalINSS.*;
+
 @Data
 @Service
-public class CalcINSSService {
+public class InssService {
 
     private double parcelaADeduzir;
     private double porcentagemAliquota;
@@ -61,8 +59,10 @@ public class CalcINSSService {
         }
     }
 
-    public UserINSSResponse generateUserINSSOut(UserINSSRequest user) {
-        return UserINSSResponse.builder()
+    public InssResponse generateInssResponse(InssRequest user) {
+        generateINSS(user.getSalarioMensalBruto());
+
+        return InssResponse.builder()
                 .salarioMensalBruto(user.getSalarioMensalBruto())
                 .nome(user.getNome())
                 .parcelaADeduzir(this.getParcelaADeduzir())
