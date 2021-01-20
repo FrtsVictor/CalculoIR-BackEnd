@@ -1,26 +1,23 @@
-package com.alterdata.calculo.irpf.models.default_users;
+package com.alterdata.calculo.irpf.models.abtract_default_users;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class UserInSalarioMensal {
+@SuperBuilder
+public abstract class SalarioMensalRequest {
 
     @NotEmpty
     @Size(min = 4, max = 80)
     protected String nome;
+    @Positive
     protected double salarioMensalBruto;
-
-    protected boolean validateSalarioBruto(UserInSalarioMensal usrIn) {
-        return usrIn.getSalarioMensalBruto() < 1;
-    }
-
 }
