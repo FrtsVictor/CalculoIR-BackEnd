@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.Path;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -33,6 +32,22 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 
         return error;
     }
+
+    @ExceptionHandler(JavaxtestinsException.class)
+    public ResponseEntity<Object> Error(JavaxtestinsException ex) {
+
+               return new ResponseEntity<>(
+                ValidationExceptionDetails.builder()
+                        .timestamp(LocalDateTime.now())
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .title("Bad Request Exception, Invalid Fields")
+                        .details("Check the field(s) error")
+                        .developerMessage("Validation Field Error")
+                        .fields(String.valueOf(ex.getError().keySet()))
+                        .fieldsMessage(String.valueOf(ex.getError().values()))
+                        .build(), HttpStatus.BAD_REQUEST);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
