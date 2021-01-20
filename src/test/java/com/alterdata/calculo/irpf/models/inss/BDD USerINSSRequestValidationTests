@@ -1,6 +1,6 @@
-Feature:"Criando UserIRPFRequest"
+Feature:"Criando UserINSSRequest"
 
-     Scenario:1 - Calcular irpf validacao nome
+     Scenario:1 - Criar inssRequest
             When: receber nome valido
             Then: nao deve lancar ValidationException
 
@@ -16,12 +16,12 @@ Feature:"Criando UserIRPFRequest"
             When: receber nome maior que 80 digitos
             Then: deve lancar ValidationException
 
-     Scenario: 2 - Calcular irpf validacao salarioMensal
+     Scenario: 2 - Criar inssRequest
             Wen: receber salarioMensalBruto positivo
             Then: nao neve lancar validation exception
 
             When: receber salarioMensalBruto negativo
             Then: deve lancar ValidationException
 
-            When: receber salarioMensalBruto igual 0
+            When: receber salarioMensalBruto igual zero
             Then: deve lancar ValidationException

@@ -1,32 +1,50 @@
-Feature: Manipular rotar usuario
+Feature: Rotas destinadas à usuário
 
      Scenario: 1 - Registrar usuario
             When: salvar usuario valido
             Then: nao deve lancar BadRequestException
+            And: deve retornar status 201 CREATED
 
      Scenario: 2 - Encontrar usuario por username
-            Given: com JWT Bearer Token
+            Given: com JWT Bearer Token válido
             When: inserir username valido
             Then: deve retornar user por username
+            And: deve retornar status 200 OK
 
-            Given: sem JWT Bearer Token
+            Given: com JWT Bearer Token invalido
             When: inserir username valido ou invalido
             Then: deve lancar status 401 Unauthorized
+            And: nao deve retornar usuario
 
      Scenario: 4 - Encontrar usuario por id
-            Given: com JWT Bearer Token
+            Given: com JWT Bearer Token válido
             When: inserir id valido
             Then: deve retornar user por id
+            And: deve retornar status 200 OK
 
-            Given: sem JWT Bearer Token
+            Given: com JWT Bearer Token invalido
             When: inserir id valido ou invalido
             Then: deve lancar status 401 Unauthorized
+            And: nao deve retornar usuario
 
-     Scenario:  - Remover usuario por id
-            Given: com JWT Bearer Token
+     Scenario: 5 - Atualiar usuario por username
+            Given: com JWT Bearer Token válido
+            When: inserir username valido
+            Then: deve retornar atualizar usuario
+            And: deve retornar status 204 NO_CONTENT
+
+            Given: com JWT Bearer Token invalido
+            When: inserir username valido ou invalido
+            Then: deve lancar status 401 Unauthorized
+            And: nao deve atualizar usuario
+
+     Scenario: 6 - Remover usuario por id
+            Given: com JWT Bearer Token válido
             When: inserir id valido
             Then: deve retornar user por id
+            And: deve retornar status 204 NO_CONTENT
 
-            Given: sem JWT Bearer Token
+            Given: com JWT Bearer Token invalido
             When: inserir id valido ou invalido
             Then: deve lancar status 401 Unauthorized
+            And: nao deve remover usuario por id

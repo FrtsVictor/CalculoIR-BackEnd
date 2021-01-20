@@ -1,0 +1,57 @@
+Feature:"Criando UserSalarioLiqRequest"
+
+     Scenario: 1 - calcular salarioLiq validacao campo nome
+            When: inserir nome valido
+            Then: nao deve lancar ValidationException
+
+            When: inserir nome vazio
+            Then: deve lancar ValidationException
+
+            When: inserir nome nulo
+            Then: deve lancar ValidationException
+
+            When: inserir nome menor que 3 digitos
+            Then: deve lancar ValidationException
+
+            When: inserir nome maior que 80 digitos
+            Then: deve lancar ValidationException
+
+     Scenario: 2 - Calcular salarioLiq validacao campo salarioMensal
+             Wen: receber salarioMensal positivo
+             Then: nao neve lancar validation exception
+
+             When: receber salarioMensal negativo
+             Then: deve lancar ValidationException
+
+             When: receber salarioMensal igual 0
+             Then: deve lancar ValidationException
+
+     Scenario: 3 - Calcular salarioLiq validacao campo pensaoAlimenticia
+              Wen: receber pensaoAlimenticia positiva
+              Then: nao neve lancar validation exception
+
+              When: receber pensaoAlimenticia igual 0
+              Then: nao deve lancar ValidationException
+
+              When: receber pensaoAlimenticia negativa
+              Then: deve lancar ValidationException
+
+     Scenario: 4 - Calcular salarioLiq validacao campo dependentes
+              Wen: receber dependentes positivo
+              Then: nao neve lancar validation exception
+
+              When: receber dependentes negativo
+              Then: deve lancar ValidationException
+
+              When: receber dependentes igual 0
+              Then: nao deve lancar ValidationException
+
+     Scenario: 5 - Calcular salarioLiq validacao campo outrosDescontos
+              Wen: receber outrosDescontos positivo
+              Then: nao neve lancar validation exception
+
+              When: receber outrosDescontos negativo
+              Then: deve lancar ValidationException
+
+              When: receber outrosDescontos igual 0
+              Then: nao deve lancar ValidationException

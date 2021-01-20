@@ -1,0 +1,45 @@
+Feature: Manipular rotar usuario
+
+     Scenario: 1 - Calcular irpf
+            Given: com JWT Bearer Token válido
+            When: calcular usuario valido
+            Then: deve retornar calculo irpf
+            And: deve retornar status code 200 OK
+
+            Given: com JWT Bearer Token inválido
+            When: calcular usuario valido ou invalido
+            Then: deve lancar status 401 Unauthorized
+            And: nao deve retornar calculo irpf
+
+     Scenario: 2 - Calcular inss
+            Given: com JWT Bearer Token válido
+            When: calcular inss valido
+            Then: deve retornar calculos inss
+            And: deve retornar status code 200 OK
+
+            Given: com JWT Bearer Token invalido
+            When: calcular inss valido ou invalido
+            Then: deve lancar status 401 Unauthorized
+            And: nao deve retornar calculo inss
+
+     Scenario: 3 - Calcular irrf
+             Given: com JWT Bearer Token válido
+             When: calcular irrf valido
+             Then: deve retornar calculo irrf
+             And: deve retornar status code 200 OK
+
+             Given: com JWT Bearer Token invalido
+             When: calcular irrf valido ou invalido
+             Then: deve lancar status 401 Unauthorized
+             And: nao deve retornar calculo inss
+
+     Scenario: 4 - Calcular salario liquido
+             Given: com JWT Bearer Token válido
+             When: calcular salario liquido valido
+             Then: deve retornar calculo salario liquido
+             And: deve retornar status code 200 OK
+
+             Given: com JWT Bearer Token invalido
+             When: cacular salario liquido valido ou invalido
+             Then: deve lancar status 401 Unauthorized
+             And: nao deve retornar calculo salario liquido

@@ -1,0 +1,57 @@
+Feature:"Validacao de campos Criando UserINSSResponse"
+
+     Scenario:1 - Calcular INSS validacao nomes
+                When: receber nome valido
+                Then: nao deve lancar ValidationException
+
+                When: receber nome vazio
+                Then: deve lancar ValidationException
+
+                When: receber nome nulo
+                Then: deve lancar ValidationException
+
+                When: receber nome menor que 3 digitos
+                Then: deve lancar ValidationException
+
+                When: receber nome maior que 8zero digitos
+                Then: deve lancar ValidationException
+
+     Scenario: 2 - Calcular INSS validacao Aliquota
+                Wen: receber valores positivos
+                Then: nao deve lancar validation exception
+
+                Wen: receber valor igual a zero
+                Then: nao deve lancar validation exception
+
+                When: receber valores negativos
+                Then: deve lancar ValidationException
+
+     Scenario: 3 - Calcular INSS validacao salarioMensalBruto
+                 Wen: receber valores positivos
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber valor igual a zero
+                 Then: nao deve lancar validation exception
+
+                 When: receber valores negativos
+                 Then: deve lancar ValidationException
+
+     Scenario: 4 - Calcular INSS validacao parcela dedutivel
+                 Wen: receber valores positivos
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber valor igual a zero
+                 Then: nao deve lancar validation exception
+
+                 When: receber valores negativos
+                 Then: deve lancar ValidationException
+
+     Scenario 5 - Calcular INSS validacao inss
+                   Wen: receber valores positivos
+                   Then: nao deve lancar validation exception
+
+                   Wen: receber valor igual a zero
+                   Then: nao deve lancar validation exception
+
+                   When: receber valores negativos
+                   Then: deve lancar ValidationException
