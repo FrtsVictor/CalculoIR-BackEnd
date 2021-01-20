@@ -18,6 +18,7 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin(value  = "*")
 @RequiredArgsConstructor
+@RequestMapping("/v1")
 public class UserController {
 
 	final UserService userService;
