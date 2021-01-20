@@ -7,6 +7,4 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class BadResquestExceptionDetails extends ExceptionDetails{
 
-
-
 }

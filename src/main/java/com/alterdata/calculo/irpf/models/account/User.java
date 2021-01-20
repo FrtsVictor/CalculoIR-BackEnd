@@ -22,7 +22,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotEmpty(message = "username mandatory")
+	@NotEmpty
 	@Size(min = 5 , max = 50)
 	private String username;
 
