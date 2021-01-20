@@ -214,7 +214,6 @@ public class IrrfResponseValidationTests {
     }
 
 
-
     @Nested
     @DisplayName("Testes para validação de campo baseDeCalculo para IrrfResponse")
     class ValidacaoCampoBaseDeCalculo {
@@ -257,7 +256,7 @@ public class IrrfResponseValidationTests {
 
     @Nested
     @DisplayName("Testes para validação de campo irrf para IrrfResponse")
-    class ValidacaoCampoIrrf{
+    class ValidacaoCampoIrrf {
 
         @Test()
         @DisplayName("Nao deve lancar ValidationException para irrf maior que zero")

@@ -1,9 +1,9 @@
 package com.alterdata.calculo.irpf.service.calculo_irrf;
 
 import com.alterdata.calculo.irpf.models.irrf.IrrfRequest;
-import com.alterdata.calculo.irpf.util.IrrfRequestCreator;
 import com.alterdata.calculo.irpf.services.calculo_mensal.InssService;
 import com.alterdata.calculo.irpf.services.calculo_mensal.IrrfService;
+import com.alterdata.calculo.irpf.util.IrrfRequestCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

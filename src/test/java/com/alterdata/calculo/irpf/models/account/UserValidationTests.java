@@ -26,7 +26,7 @@ class UserValidationTests {
 
     @Nested
     @DisplayName("Testes para validação do campo nome")
-    class ValidacaoNome{
+    class ValidacaoNome {
 
         @Test()
         @DisplayName("Nao deve lancar ValidationException para nome valido")
@@ -97,7 +97,7 @@ class UserValidationTests {
     }
 
     @Nested
-    class ValidacaoUsername{
+    class ValidacaoUsername {
         @Test()
         @DisplayName("Nao deve lancar ValidationException para username valido")
         void nao_deve_lancar_ValidationException_para_username_valido() {
@@ -167,7 +167,7 @@ class UserValidationTests {
     }
 
     @Nested
-    class ValidacaoPassword{
+    class ValidacaoPassword {
         @Test()
         @DisplayName("Nao deve lancar ValidationException para password valido")
         void nao_deve_lancar_ValidationException_para_password_valido() {

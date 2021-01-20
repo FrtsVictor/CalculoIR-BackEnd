@@ -32,7 +32,7 @@ class GenerateINSSTests {
 
     @Test
     @DisplayName("Deve retornar teto para descontos inss")
-    void deve_retornar_teto_inss(){
+    void deve_retornar_teto_inss() {
         double salarioBruto = 10000;
 
         InssRequest user = new InssRequest("Test", salarioBruto);
@@ -43,7 +43,7 @@ class GenerateINSSTests {
 
     @Test
     @DisplayName("Nao deve retornar teto para desconto inss")
-    void nao_deve_retornar_teto_inss(){
+    void nao_deve_retornar_teto_inss() {
         double salarioBruto = TETO_INSS.value() - 0.1;
 
         InssRequest user = new InssRequest("Test", salarioBruto);
@@ -55,7 +55,7 @@ class GenerateINSSTests {
 
     @Test
     @DisplayName("Deve retornar calculo INSS")
-    void deve_retornar_calculo_inss(){
+    void deve_retornar_calculo_inss() {
         double salarioBruto = 2200;
 
         InssRequest user = new InssRequest("Test", salarioBruto);

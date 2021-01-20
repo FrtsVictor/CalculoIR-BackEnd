@@ -4,7 +4,7 @@ import com.alterdata.calculo.irpf.models.irrf.IrrfRequest;
 
 public class IrrfRequestCreator {
 
-    public static IrrfRequest createValidIrrfRequest(){
+    public static IrrfRequest createValidIrrfRequest() {
         return IrrfRequest.builder()
                 .nome("Test")
                 .salarioMensalBruto(1500)
@@ -13,7 +13,7 @@ public class IrrfRequestCreator {
                 .build();
     }
 
-    public static IrrfRequest createValidWithZeroIrrfRequest(){
+    public static IrrfRequest createValidWithZeroIrrfRequest() {
         return IrrfRequest.builder()
                 .nome("Test")
                 .salarioMensalBruto(0)

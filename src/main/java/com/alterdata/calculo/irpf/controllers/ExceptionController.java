@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.Path;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -36,7 +37,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(JavaxtestinsException.class)
     public ResponseEntity<Object> Error(JavaxtestinsException ex) {
 
-               return new ResponseEntity<>(
+        return new ResponseEntity<>(
                 ValidationExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .status(HttpStatus.BAD_REQUEST.value())
@@ -107,12 +108,6 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                         .developerMessage(bre.getClass().getName())
                         .build(), HttpStatus.BAD_REQUEST);
     }
-
-
-
-
-
-
 
 
 }

@@ -2,9 +2,9 @@ package com.alterdata.calculo.irpf.service.user;
 
 import com.alterdata.calculo.irpf.exceptions.BadRequestException;
 import com.alterdata.calculo.irpf.models.account.User;
-import com.alterdata.calculo.irpf.util.UserCreator;
 import com.alterdata.calculo.irpf.repositories.UserRepository;
 import com.alterdata.calculo.irpf.services.user.UserService;
+import com.alterdata.calculo.irpf.util.UserCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

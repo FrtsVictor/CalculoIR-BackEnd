@@ -37,7 +37,8 @@ class UserControllerTests {
 
     @BeforeEach
     void setup() {
-        PageImpl<User> userPage = new PageImpl<User>(List.of(UserCreator.createValidUser()));
+        PageImpl<User> userPage = new PageImpl<>(List.of(UserCreator.createValidUser()));
+
         BDDMockito.when(userServiceMock.listALl(ArgumentMatchers.any()))
                 .thenReturn(userPage);
 
@@ -103,7 +104,7 @@ class UserControllerTests {
     @Test
     @DisplayName("replace deve atualizar user quando sucesso")
     void deve_atualizar_user_quando_sucesso() {
-        Assertions.assertThatCode(()-> userController.updateUser(UserPutRequestCreator.createUserPutRequest()))
+        Assertions.assertThatCode(() -> userController.updateUser(UserPutRequestCreator.createUserPutRequest()))
                 .doesNotThrowAnyException();
 
         ResponseEntity<Void> entity = userController.updateUser(UserPutRequestCreator.createUserPutRequest());
@@ -116,7 +117,7 @@ class UserControllerTests {
     @DisplayName("delete deve remover user quando sucesso")
     void delete_deve_remover_user_quando_sucesso() {
 
-        Assertions.assertThatCode(()-> userController.deleteUser(1))
+        Assertions.assertThatCode(() -> userController.deleteUser(1))
                 .doesNotThrowAnyException();
 
         ResponseEntity<Void> entity = userController.deleteUser(1);

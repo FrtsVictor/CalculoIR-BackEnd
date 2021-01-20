@@ -21,7 +21,6 @@ class UserRepositoryTests {
     private UserRepository userRepository;
 
 
-
     @Test
     @DisplayName("deve salvar User no banco de dados")
     void save_deve_salvar_usuario_quando_nao_houver_errors() {
@@ -78,7 +77,7 @@ class UserRepositoryTests {
 
     @Test
     @DisplayName("deve retornar optional empty quando nao encontrar usuario")
-     void findByUsername_deve_retornar_null_quando_nao_houver_username_valido() {
+    void findByUsername_deve_retornar_null_quando_nao_houver_username_valido() {
         Optional<User> userByUserName = this.userRepository.findByUsername("test");
         Assertions.assertThat(userByUserName).isEmpty();
     }

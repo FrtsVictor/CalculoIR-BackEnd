@@ -213,7 +213,6 @@ public class SalarioLiqResponseValidationTests {
     }
 
 
-
     @Nested
     @DisplayName("Testes para validação de campo baseDeCalculo para SalarioLiqResponse")
     class ValidacaoCampoBaseDeCalculo {
@@ -256,7 +255,7 @@ public class SalarioLiqResponseValidationTests {
 
     @Nested
     @DisplayName("Testes para validação de campo irrf para SalarioLiqResponse")
-    class ValidacaoCampoIrrf{
+    class ValidacaoCampoIrrf {
 
         @Test()
         @DisplayName("Nao deve lancar ValidationException para irrf maior que zero")

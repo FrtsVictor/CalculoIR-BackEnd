@@ -39,7 +39,7 @@ class UserControllerIT {
     HttpHeaders httpHeaders;
 
     @BeforeEach
-    void generateToken(){
+    void generateToken() {
         User savedUser = userService.save(UserRequestCreator.createUserRequestBody());
         JwtRequest loginRequest = new JwtRequest(savedUser.getUsername(), "123321");
 
@@ -49,7 +49,7 @@ class UserControllerIT {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer "+ token);
+        headers.set("Authorization", "Bearer " + token);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         this.httpHeaders = new HttpHeaders(headers);
@@ -147,7 +147,7 @@ class UserControllerIT {
     @Test
     @DisplayName("replace deve atualizar user quando sucesso")
     void replace_deve_atualizar_user_quando_sucesso() {
-        UserRequest validUser = new UserRequest("testUsername3", "123456","Test3");
+        UserRequest validUser = new UserRequest("testUsername3", "123456", "Test3");
         User userToBeUpdated = userService.save(validUser);
 
         HttpEntity request = new HttpEntity(userToBeUpdated, this.httpHeaders);
@@ -168,7 +168,7 @@ class UserControllerIT {
     @Test
     @DisplayName("replace deve lancar status 401 Unauthorized para token invalido")
     void replace_deve_lancar_status_401_unauthorized_para_token_invalido() {
-        UserRequest validUser = new UserRequest("testUsername3", "123456","Test3");
+        UserRequest validUser = new UserRequest("testUsername3", "123456", "Test3");
         User userToBeUpdated = userService.save(validUser);
 
         HttpEntity request = new HttpEntity(userToBeUpdated, this.httpHeaders);

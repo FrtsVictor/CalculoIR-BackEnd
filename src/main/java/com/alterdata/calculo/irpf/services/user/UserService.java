@@ -58,7 +58,6 @@ public class UserService {
     }
 
 
-
     public Page<User> listALl(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
@@ -105,11 +104,11 @@ public class UserService {
         userRepository.save(updateUser);
     }
 
-    public Object validateResponse(Object entity){
+    public Object validateResponse(Object entity) {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Object>> violations = validator.validate(entity);
 
-        if (!violations.isEmpty()){
+        if (!violations.isEmpty()) {
             Map<Path, String> error = new HashMap<>();
 
             for (ConstraintViolation<Object> violation : violations) {

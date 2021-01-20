@@ -39,7 +39,7 @@ class CalculateControllerTestsIT {
     HttpHeaders httpHeaders;
 
     @BeforeEach
-    void generateToken(){
+    void generateToken() {
         User savedUser = userService.save(UserRequestCreator.createUserRequestBody());
         JwtRequest loginRequest = new JwtRequest(savedUser.getUsername(), "123321");
 
@@ -49,7 +49,7 @@ class CalculateControllerTestsIT {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer "+ token);
+        headers.set("Authorization", "Bearer " + token);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         this.httpHeaders = new HttpHeaders(headers);
@@ -98,7 +98,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularINSS deve retornar InssResponse status 200 OK quando token valido")
-    void calcularINSS_deve_retornar_inss_quando_salvo_com_sucesso()  {
+    void calcularINSS_deve_retornar_inss_quando_salvo_com_sucesso() {
         InssRequest inssRequest = new InssRequest();
         inssRequest.setNome("Teste");
         inssRequest.setSalarioMensalBruto(5000);
@@ -118,7 +118,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularINSS deve retornar status 401 Unauthorized para token invalido")
-    void calcularINSS_deve_retornar_status_401_unautorized_para_rota_sem_token()  {
+    void calcularINSS_deve_retornar_status_401_unautorized_para_rota_sem_token() {
         InssRequest inssRequest = new InssRequest();
         inssRequest.setNome("Teste");
         inssRequest.setSalarioMensalBruto(5000);
@@ -137,7 +137,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularIRRF deve retornar IrrfResponse status 200 OK quando token valido")
-    void calcularIRRF_deve_retornar_UserIRRFResponse_quando_token_valido()  {
+    void calcularIRRF_deve_retornar_UserIRRFResponse_quando_token_valido() {
         IrrfRequest irrfRequest = new IrrfRequest();
         irrfRequest.setNome("Teste");
         irrfRequest.setSalarioMensalBruto(5000);
@@ -157,7 +157,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularIRRF deve retornar status 401 Unauthorized para token invalido")
-    void calcularIRRF_deve_retornar_status_401_Unauthorized_para_rota_sem_token()  {
+    void calcularIRRF_deve_retornar_status_401_Unauthorized_para_rota_sem_token() {
         IrrfRequest irrfRequest = new IrrfRequest();
         irrfRequest.setNome("Teste");
         irrfRequest.setSalarioMensalBruto(5000);
@@ -176,7 +176,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularSalLiq deve retornar UserSalarioLiq status 200 OK quando token valido")
-    void calcularSalLiq_deve_retornar_UserSalarioLiqResponse_quando_token_valido()  {
+    void calcularSalLiq_deve_retornar_UserSalarioLiqResponse_quando_token_valido() {
         SalarioLiqRequest salLiq = new SalarioLiqRequest();
         salLiq.setNome("Teste");
         salLiq.setSalarioMensalBruto(5000);
@@ -196,7 +196,7 @@ class CalculateControllerTestsIT {
 
     @Test
     @DisplayName("calcularSalario-liq deve retornar status 401 Unauthorized para token invalido")
-    void calcularSalarioLiq_deve_retornar_status_401_Unauthorized_para_rota_sem_token()  {
+    void calcularSalarioLiq_deve_retornar_status_401_Unauthorized_para_rota_sem_token() {
         IrrfRequest irrfRequest = new IrrfRequest();
         irrfRequest.setNome("Teste");
         irrfRequest.setSalarioMensalBruto(5000);

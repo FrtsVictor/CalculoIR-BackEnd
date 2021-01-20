@@ -133,7 +133,7 @@ public class GenerateFaixaSalarialTests {
         @Test
         @DisplayName("Nao deve retornar Faixa3 para valores superioes a Faixa3")
         void generateFaixaSalarial_nao_deve_retornar_Faixa3_para_valores_superioes() {
-            double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_FINAL.value() + 0.1 ;
+            double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_FINAL.value() + 0.1;
 
             InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
             inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
@@ -145,7 +145,7 @@ public class GenerateFaixaSalarialTests {
         @Test
         @DisplayName("Nao deve retornar Faixa3 para valores inferiores a Faixa3")
         void generateFaixaSalarial_nao_deve_retornar_Faixa3_para_valores_inferiores() {
-            double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_INICIAL.value() - 0.1 ;
+            double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_INICIAL.value() - 0.1;
 
             InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
             inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());

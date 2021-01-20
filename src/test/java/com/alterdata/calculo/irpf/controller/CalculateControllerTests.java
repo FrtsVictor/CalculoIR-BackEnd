@@ -5,15 +5,15 @@ import com.alterdata.calculo.irpf.models.inss.InssRequest;
 import com.alterdata.calculo.irpf.models.irrf.IrrfRequest;
 import com.alterdata.calculo.irpf.models.irrf.IrrfResponse;
 import com.alterdata.calculo.irpf.models.salario_liq.SalarioLiqRequest;
-import com.alterdata.calculo.irpf.util.InssResponseCreator;
-import com.alterdata.calculo.irpf.util.IrrfRequestCreator;
-import com.alterdata.calculo.irpf.util.IrrfResponseCreator;
-import com.alterdata.calculo.irpf.util.SalarioLiqResponseCreator;
 import com.alterdata.calculo.irpf.services.calculo_anual.AliqAnualIrpfService;
 import com.alterdata.calculo.irpf.services.calculo_anual.IrpfService;
 import com.alterdata.calculo.irpf.services.calculo_mensal.InssService;
 import com.alterdata.calculo.irpf.services.calculo_mensal.IrrfService;
 import com.alterdata.calculo.irpf.services.calculo_mensal.SalarioLiqService;
+import com.alterdata.calculo.irpf.util.InssResponseCreator;
+import com.alterdata.calculo.irpf.util.IrrfRequestCreator;
+import com.alterdata.calculo.irpf.util.IrrfResponseCreator;
+import com.alterdata.calculo.irpf.util.SalarioLiqResponseCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -58,7 +58,7 @@ public class CalculateControllerTests {
     void calcula_irrf_deve_retornar_irrfResponse() {
         IrrfRequest irrfReq = IrrfRequestCreator.createValidIrrfRequest();
 
-        IrrfResponse irrfResp = calculateController.generateIRRF(irrfReq).getBody();
+        IrrfResponse irrfResp = calculateController.calcularIrrf(irrfReq).getBody();
 
         Assertions.assertThat(irrfResp).isNotNull();
 

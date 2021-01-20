@@ -27,7 +27,7 @@ public class IrrfRequestTests {
 
     @Nested
     @DisplayName("Testes para validação do campo nome para IrrfRequest")
-    class ValidacaoNome{
+    class ValidacaoNome {
 
         @Test()
         @DisplayName("Nao deve lancar ValidationException para nome valido")
