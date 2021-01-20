@@ -1,6 +1,7 @@
 package com.alterdata.calculo.irpf.models.irpf;
 
 import com.alterdata.calculo.irpf.models.abtract_default_users.SalarioAnualRequest;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,16 +16,27 @@ import javax.validation.constraints.Size;
 public class IrpfResponse extends SalarioAnualRequest {
 
     @PositiveOrZero
+    @Schema(description = "Valor referente a porcentagem da aliquota para calulo de imposto de renda")
     private double porcentagemAliquota;
+
     @Positive
+    @Schema(description = "Valor referente base de calculo para gerar aliquota")
     private double baseDeCalculo;
+
     @Positive
+    @Schema(description = "Valor referente a deducao simplificada, 20% do rendimento anual bruto")
     private double deducaoSimplificada;
+
     @PositiveOrZero
+    @Schema(description = "Valor referente ao impost de renda sem descontos da parcela dedutivel")
     private double impostoInicial;
+
     @PositiveOrZero
+    @Schema(description = "Valor referente ao calculo da aliquota, deducao por faixa de renda")
     private double parcelaDedutivel;
+
     @PositiveOrZero
+    @Schema(description = "Valor final do imposto de renda")
     private double impostoRenda;
 
     @Builder

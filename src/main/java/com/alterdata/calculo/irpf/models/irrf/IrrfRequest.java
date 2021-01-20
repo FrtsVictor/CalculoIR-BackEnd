@@ -1,7 +1,9 @@
 package com.alterdata.calculo.irpf.models.irrf;
 
 import com.alterdata.calculo.irpf.models.abtract_default_users.SalarioMensalRequest;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.PositiveOrZero;
@@ -16,7 +18,6 @@ public class IrrfRequest extends SalarioMensalRequest {
     private double dependentes;
     @PositiveOrZero
     private double pensaoAlimenticia;
-
 
 
 }
