@@ -1,8 +1,8 @@
 package com.alterdata.calculo.irpf.repository;
 
 import com.alterdata.calculo.irpf.models.account.User;
-import com.alterdata.calculo.irpf.util.UserCreator;
 import com.alterdata.calculo.irpf.repositories.UserRepository;
+import com.alterdata.calculo.irpf.util.UserCreator;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

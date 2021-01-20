@@ -1,7 +1,7 @@
 package com.alterdata.calculo.irpf.service.calculo_inss;
 
-import com.alterdata.calculo.irpf.models.inss.UserINSSRequest;
-import com.alterdata.calculo.irpf.services.calculo_mensal.CalcINSSService;
+import com.alterdata.calculo.irpf.models.inss.InssRequest;
+import com.alterdata.calculo.irpf.services.calculo_mensal.InssService;
 import org.junit.jupiter.api.*;
 
 import static com.alterdata.calculo.irpf.services.calculo_mensal.constants.AliquotaMensalINSS.*;
@@ -10,13 +10,13 @@ import static com.alterdata.calculo.irpf.services.calculo_mensal.constants.Aliqu
 @DisplayName("Executando testes unitarios CalcINSS generateFaixaSalarial()")
 public class GenerateFaixaSalarialTests {
 
-    private CalcINSSService calcINSSService;
-    private UserINSSRequest userINSSRequest;
+    private InssService inssService;
+    private InssRequest userINSSRequest;
 
     @BeforeEach
     void generateFaixaSalarial_initEach() {
-        calcINSSService = new CalcINSSService();
-        userINSSRequest = new UserINSSRequest();
+        inssService = new InssService();
+        userINSSRequest = new InssRequest();
     }
 
     @Nested
@@ -28,11 +28,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_generateFaixaSalarial_deve_retornar_Faixa1_para_valor_final() {
             double salarioBrutoMensal = FAIXA_SALARIAL1_VALOR_FINAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
-            Assertions.assertEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
         }
 
         @Test
@@ -40,11 +40,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa1_para_valores_superioes() {
             double salarioBrutoMensal = FAIXA_SALARIAL1_VALOR_FINAL.value() + 0.1;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), inssService.getPorcentagemAliquota());
         }
 
     }
@@ -57,11 +57,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa2_para_valor_final() {
             double salarioBrutoMensal = FAIXA_SALARIAL2_VALOR_FINAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -69,11 +69,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa2_para_valor_inicial() {
             double salarioBrutoMensal = FAIXA_SALARIAL2_VALOR_INICIAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
 
@@ -82,11 +82,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa2_para_valores_superioes() {
             double salarioBrutoMensal = FAIXA_SALARIAL2_VALOR_FINAL.value() + 0.1;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -94,11 +94,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa2_para_valores_inferiores() {
             double salarioBrutoMensal = FAIXA_SALARIAL2_VALOR_INICIAL.value() - 0.1;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL2_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
     }
@@ -111,11 +111,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa3_para_valor_final() {
             double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_FINAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -123,11 +123,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa3_para_valor_inicial() {
             double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_INICIAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -135,11 +135,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa3_para_valores_superioes() {
             double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_FINAL.value() + 0.1 ;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -147,11 +147,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa3_para_valores_inferiores() {
             double salarioBrutoMensal = FAIXA_SALARIAL3_VALOR_INICIAL.value() - 0.1 ;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL3_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
     }
@@ -164,11 +164,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa4_para_valor_final() {
             double salarioBrutoMensal = FAIXA_SALARIAL4_VALOR_FINAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -176,11 +176,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_deve_retornar_Faixa4_para_valor_inicial() {
             double salarioBrutoMensal = FAIXA_SALARIAL4_VALOR_INICIAL.value();
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
 
         @Test
@@ -188,11 +188,11 @@ public class GenerateFaixaSalarialTests {
         void generateFaixaSalarial_nao_deve_retornar_Faixa4_para_valores_inferiores() {
             double salarioBrutoMensal = FAIXA_SALARIAL4_VALOR_INICIAL.value() - 0.1;
 
-            UserINSSRequest userliq = new UserINSSRequest("Test", salarioBrutoMensal);
-            calcINSSService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
+            InssRequest userliq = new InssRequest("Test", salarioBrutoMensal);
+            inssService.generateFaixaSalarial(userliq.getSalarioMensalBruto());
 
-            Assertions.assertNotEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), calcINSSService.getParcelaADeduzir());
-            Assertions.assertNotEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), calcINSSService.getPorcentagemAliquota());
+            Assertions.assertNotEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), inssService.getParcelaADeduzir());
+            Assertions.assertNotEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), inssService.getPorcentagemAliquota());
         }
     }
 
