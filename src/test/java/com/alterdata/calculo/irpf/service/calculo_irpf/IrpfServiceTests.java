@@ -6,21 +6,21 @@ import com.alterdata.calculo.irpf.services.calculo_anual.AliqAnualIrpfService;
 import com.alterdata.calculo.irpf.services.calculo_anual.IrpfService;
 import org.junit.jupiter.api.*;
 
-@DisplayName("Executando testes unitarios CalcIRPF generateIR()")
+@DisplayName("Executando testes unitarios CalcIRPF gerarIR()")
 class IrpfServiceTests {
 
     private TestInfo testInfo;
     private TestReporter testReporter;
 
     private AliqAnualIrpfService aliquotaAnualService;
-    private IrpfRequest usuarioCSVIn;
+    private IrpfRequest irpfRequest;
     private IrpfService irpfService;
 
 
     @BeforeEach
     void initEach(TestReporter testReporter, TestInfo testInfo) {
         aliquotaAnualService = new AliqAnualIrpfService();
-        usuarioCSVIn = new IrpfRequest();
+        irpfRequest = new IrpfRequest();
         irpfService = new IrpfService(aliquotaAnualService);
 
         this.testReporter = testReporter;
@@ -34,12 +34,12 @@ class IrpfServiceTests {
 
     @Test
     @DisplayName("Deve retornar IrpfResponse para valores de calculo validos")
-    void deve_retornar_UserIRPFOut_para_valores_validos() {
+    void deve_retornar_IrpfResponse_para_valores_validos() {
         double rendimentoAnualBruto = 40000;
         IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnualBruto);
 
-        aliquotaAnualService.generateAliquota(usrIn);
-        IrpfResponse usrOut = irpfService.calcularIR(aliquotaAnualService);
+        aliquotaAnualService.gerarAliquota(usrIn);
+        IrpfResponse usrOut = irpfService.calcularIrpf(aliquotaAnualService);
 
         Assertions.assertNotNull(usrOut);
     }

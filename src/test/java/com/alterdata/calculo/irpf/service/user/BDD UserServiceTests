@@ -1,37 +1,37 @@
-Feature:"Ao executar metodos utilitarios para UserController via UserService"
+Feature:"Ao executar metodos utilitarios para UsuarioController via UserService"
 
     Scenario: 1 - Listar todos usuarios
-                  When: utilizar metodo listAll
+                  When: utilizar metodo listarTodos
                   Then: deve retornar lista paginada de usuarios
 
-    Scenario: 2 - Procurar usuario por ID
-                  Given: id valido para usuario cadastrado
-                  When: procurar usuario por id
-                  Then: deve retornar usuario
+    Scenario: 2 - Procurar user por ID
+                  Given: id valido para user cadastrado
+                  When: procurar user por id
+                  Then: deve retornar user
 
                   Given: id invalido
-                  When: procurar usuario por id
+                  When: procurar user por id
                   Then: deve lançar BadRequestException
 
-    Scenario: 3 - Procurar usuario por Username
-                  Given: username valido para usuario cadastrado valido
-                  When: procurar usuario por Username
-                  Then: deve retornar usuario
+    Scenario: 3 - Procurar user por Username
+                  Given: username valido para user cadastrado valido
+                  When: procurar user por Username
+                  Then: deve retornar user
 
                   Given: username invalido
-                  WHen: procurar por usuario por username
+                  WHen: procurar por user por username
                   Then: deve lançar BadRequestException
 
-    Scenario: 4 - Salvar usuario
-                  Given: usuario valido para salvar
-                  When: salvar usuario
-                  THen: deve retornar usuario salvo
+    Scenario: 4 - Salvar user
+                  Given: user valido para salvar
+                  When: salvar user
+                  THen: deve retornar user salvo
 
-    Scenario: 4 - Deletar usuario
-                  Given: id valido para usuario salvo no banco
-                  WHen: deletar usuario por id
-                  Then: deve remover usuario com sucesso
+    Scenario: 4 - Deletar user
+                  Given: id valido para user salvo no banco
+                  WHen: deletar user por id
+                  Then: deve remover user com sucesso
 
                   Given: id invalido
-                  When: deletar usuario por id
+                  When: deletar user por id
                   Then: deve lançar BadRequestException

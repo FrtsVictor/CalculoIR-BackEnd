@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 
 import static com.alterdata.calculo.irpf.services.calculo_anual.constants.AliquotaAnualIRPF.*;
 
+
 @Data
 @Service
 public class AliqAnualIrpfService {
@@ -20,7 +21,7 @@ public class AliqAnualIrpfService {
 
     DecimalFormat df = new DecimalFormat("#.00");
 
-    private void createDeducaoSimplificada() {
+    private void calcularDeducaoSimplificada() {
         double calcDeducaoSimplificada = this.rendimentoAnualBruto * VALOR_BASE_DEDUCAO_SIMPLIFICADA.value();
 
         if (calcDeducaoSimplificada > TETO_DEDUCAO_SIMPLIFICADA.value()) {
@@ -29,7 +30,8 @@ public class AliqAnualIrpfService {
         this.deducaoSimplificada = Math.round(calcDeducaoSimplificada * 100.0) / 100.0;
     }
 
-    private void createCalculoBase() {
+
+    private void gerarBaseDeCalculo() {
         double calcBaseCalculo = this.rendimentoAnualBruto - deducaoSimplificada;
         this.baseDeCalculo = Math.round(calcBaseCalculo * 100.0) / 100.0;
     }
@@ -73,10 +75,10 @@ public class AliqAnualIrpfService {
     }
 
 
-    public void generateAliquota(IrpfRequest usrCSVIn) {
-        this.rendimentoAnualBruto = usrCSVIn.getRendimentoAnualBruto();
-        createDeducaoSimplificada();
-        createCalculoBase();
+    public void gerarAliquota(IrpfRequest irpfRequest) {
+        this.rendimentoAnualBruto = irpfRequest.getRendimentoAnualBruto();
+        calcularDeducaoSimplificada();
+        gerarBaseDeCalculo();
         aliquota1();
         aliquota2();
         aliquota3();

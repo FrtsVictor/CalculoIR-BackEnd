@@ -1,0 +1,77 @@
+Feature:"Validacao de campos Criando IrpfResponse"
+
+     Scenario:1 - Calcular irpf validacao nomes
+                When: receber nome valido
+                Then: nao deve lancar ValidationException
+
+                When: receber nome vazio
+                Then: deve lancar ValidationException
+
+                When: receber nome nulo
+                Then: deve lancar ValidationException
+
+                When: receber nome menor que 3 digitos
+                Then: deve lancar ValidationException
+
+                When: receber nome maior que 80 digitos
+                Then: deve lancar ValidationException
+
+     Scenario: 2 - Calcular irpf validacao baseCalculo
+                Wen: receber baseCalculo positiva
+                Then: nao deve lancar validation exception
+
+                Wen: receber baseCalculo 0
+                Then: deve lancar validation exception
+
+                When: receber baseCalculo negativa
+                Then: deve lancar ValidationException
+
+     Scenario: 3 - Calcular irpf validacao deducaoSimplificada
+                 Wen: receber deducaoSimplificada positiva
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber deducaoSimplificada 0
+                 Then: deve lancar validation exception
+
+                 When: receber deducaoSimplificada negativa
+                 Then: deve lancar ValidationException
+
+     Scenario: 4 - Calcular irpf validacao parcelaDedutivel
+                 Wen: receber parcelaDedutivel positivos
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber parcelaDedutivel 0
+                 Then: nao deve lancar validation exception
+
+                 When: receber parcelaDedutivel negativa
+                 Then: deve lancar ValidationException
+
+     Scenario 5 - Calcular irpf impostoRenda
+                 Wen: receber impostoRenda positivo
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber impostoRenda 0
+                 Then: nao deve lancar validation exception
+
+                 When: receber impostoRenda negativo
+                 Then: deve lancar ValidationException
+
+    Scenario: 6 - Calcular irpf validacao rendimentoAnualBruto
+                 Wen: receber rendimentoAnualBruto positivo
+                 Then: nao deve lancar validation exception
+
+                 Wen: receber rendimentoAnualBruto 0
+                 Then: deve lancar validation exception
+
+                 When: receber rendimentoAnualBruto negativa
+                 Then: deve lancar ValidationException
+
+    Scenario: 7 - Calcular irpf validacao porcentagemAliquota
+                     Wen: receber porcentagemAliquota positiva
+                     Then: nao deve lancar validation exception
+
+                     Wen: receber porcentagemAliquota 0
+                     Then: nao lancar validation exception
+
+                     When: receber porcentagemAliquota negativa
+                     Then: deve lancar ValidationException

@@ -1,0 +1,48 @@
+Feature:"Criando IrpfRequest"
+
+     Scenario: 1 - calcular irrf validacao campo nome
+            When: inserir nome valido
+            Then: nao deve lancar ValidationException
+
+            When: inserir nome vazio
+            Then: deve lancar ValidationException
+
+            When: inserir nome nulo
+            Then: deve lancar ValidationException
+
+            When: inserir nome menor que 3 digitos
+            Then: deve lancar ValidationException
+
+            When: inserir nome maior que 80 digitos
+            Then: deve lancar ValidationException
+
+     Scenario: 2 - Calcular irpf validacao campo salarioMensal
+             Wen: receber salarioMensal positivo
+             Then: nao neve lancar validation exception
+
+             When: receber salarioMensal negativo
+             Then: deve lancar ValidationException
+
+             When: receber salarioMensal igual 0
+             Then: deve lancar ValidationException
+
+     Scenario: 3 - Calcular irpf validacao campo pensaoAlimenticia
+                  Wen: receber pensaoAlimenticia positiva
+                  Then: nao neve lancar validation exception
+
+                  When: receber pensaoAlimenticia igual 0
+                  Then: nao deve lancar ValidationException
+
+                  When: receber pensaoAlimenticia negativa
+                  Then: deve lancar ValidationException
+
+     Scenario: 4 - Calcular irpf validacao campo dependentes
+                  Wen: receber dependentes positivo
+                  Then: nao neve lancar validation exception
+
+                  When: receber dependentes negativo
+                  Then: deve lancar ValidationException
+
+                  When: receber dependentes igual 0
+                  Then: nao deve lancar ValidationException
+

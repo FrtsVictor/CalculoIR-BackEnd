@@ -1,0 +1,117 @@
+Feature:"Criando IrrfRequest"
+
+    Scenario: 1 - calcular irrf validacao campo nome
+        When: inserir nome valido
+        Then: nao deve lancar ValidationException
+
+        When: inserir nome vazio
+        Then: deve lancar ValidationException
+
+        When: inserir nome nulo
+        Then: deve lancar ValidationException
+
+        When: inserir nome menor que 3 digitos
+        Then: deve lancar ValidationException
+
+        When: inserir nome maior que 80 digitos
+        Then: deve lancar ValidationException
+
+    Scenario: 2 - Calcular irpf validacao campo salarioMensal
+         When: receber salarioMensal positivo
+         Then: nao neve lancar validation exception
+
+         When: receber salarioMensal negativo
+         Then: deve lancar ValidationException
+
+         When: receber salarioMensal igual 0
+         Then: deve lancar ValidationException
+
+    Scenario: 3 - Calcular irpf validacao campo pensaoAlimenticia
+          When: receber pensaoAlimenticia positiva
+          Then: nao neve lancar validation exception
+
+          When: receber pensaoAlimenticia igual 0
+          Then: nao deve lancar ValidationException
+
+          When: receber pensaoAlimenticia negativa
+          Then: deve lancar ValidationException
+
+    Scenario: 4 - Calcular irpf validacao campo dependentes
+          When: receber dependentes positivo
+          Then: nao neve lancar validation exception
+
+          When: receber dependentes negativo
+          Then: deve lancar ValidationException
+
+          When: receber dependentes igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 5 - Calcular irpf validacao campo baseDeCalculo
+          When: receber baseDeCalculo positivo
+          Then: nao neve lancar validation exception
+
+          When: receber baseDeCalculo negativo
+          Then: deve lancar ValidationException
+
+          When: receber baseDeCalculo igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 6 - Calcular irpf validacao campo porcentagemAliquota
+          When: receber porcentagemAliquota positivo
+          Then: nao neve lancar validation exception
+
+          When: receber porcentagemAliquota negativo
+          Then: deve lancar ValidationException
+
+          When: receber porcentagemAliquota igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 7 - Calcular irpf validacao campo valorDependentes
+          When: receber valorDependentes positivo
+          Then: nao neve lancar validation exception
+
+          When: receber valorDependentes negativo
+          Then: deve lancar ValidationException
+
+          When: receber valorDependentes igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 8 - Calcular irpf validacao campo totalDescontos
+          When: receber totalDescontos positivo
+          Then: nao neve lancar validation exception
+
+          When: receber totalDescontos negativo
+          Then: deve lancar ValidationException
+
+          When: receber totalDescontos igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 9 - Calcular irpf validacao campo parcelaADeduzir
+          When: receber parcelaADeduzir positivo
+          Then: nao neve lancar validation exception
+
+          When: receber parcelaADeduzir negativo
+          Then: deve lancar ValidationException
+
+          When: receber parcelaADeduzir igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 10 - Calcular irpf validacao campo irrf
+          When: receber irrf positivo
+          Then: nao neve lancar validation exception
+
+          When: receber irrf negativo
+          Then: deve lancar ValidationException
+
+          When: receber irrf igual 0
+          Then: nao deve lancar ValidationException
+
+    Scenario: 11 - Calcular irpf validacao campo irrf
+          When: receber irrf positivo
+          Then: nao neve lancar validation exception
+
+          When: receber irrf negativo
+          Then: deve lancar ValidationException
+
+          When: receber irrf igual 0
+          Then: nao deve lancar ValidationException

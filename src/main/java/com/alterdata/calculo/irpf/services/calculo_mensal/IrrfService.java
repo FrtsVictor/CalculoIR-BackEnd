@@ -26,25 +26,25 @@ public class IrrfService {
         return Math.round(decimal * 100.0) / 100.0;
     }
 
-    public IrrfResponse generateIRRF(IrrfRequest user) {
-        generateBaseCalculo(user);
-        generateFaixaSalarial();
+    public IrrfResponse calcularIrrf(IrrfRequest user) {
+        gerarBaseCalculo(user);
+        gerarFaixaSalarial();
 
         double irrfCalc = (this.baseCalculo * this.porcentagemAliquota / 100) - this.parcelaADeduzir;
         this.irrf = decimalFormater(irrfCalc);
-        return generateIrrfResponse(user);
+        return gerarIrrfResponse(user);
     }
 
-    public double generateBaseCalculo(IrrfRequest user) {
+    public double gerarBaseCalculo(IrrfRequest user) {
         inssService = new InssService();
-        double inss = inssService.generateINSS(user.getSalarioMensalBruto());
+        double inss = inssService.calcularINSS(user.getSalarioMensalBruto());
         this.valorDependentes = user.getDependentes() * VALOR_POR_DEPENDENTE.value();
         this.valorTotalDescontos = decimalFormater(inss + this.valorDependentes + user.getPensaoAlimenticia());
         this.baseCalculo = decimalFormater(user.getSalarioMensalBruto() - this.valorTotalDescontos);
         return this.baseCalculo;
     }
 
-    public void generateFaixaSalarial() {
+    public void gerarFaixaSalarial() {
         if (this.baseCalculo <= FAIXA_SALARIAL1_VALOR_FINAL.value()) {
             this.parcelaADeduzir = FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value();
             this.porcentagemAliquota = FAIXA_SALARIAL1_ALIQUOTA.value();
@@ -56,7 +56,7 @@ public class IrrfService {
             this.porcentagemAliquota = FAIXA_SALARIAL2_ALIQUOTA.value();
         }
 
-        if (this.baseCalculo >= FAIXA_SALARIAL3__VALOR_INICIAL.value() &&
+        if (this.baseCalculo >= FAIXA_SALARIAL3_VALOR_INICIAL.value() &&
                 this.baseCalculo <= FAIXA_SALARIAL3_VALOR_FINAL.value()) {
             this.parcelaADeduzir = FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value();
             this.porcentagemAliquota = FAIXA_SALARIAL3_ALIQUOTA.value();
@@ -74,10 +74,8 @@ public class IrrfService {
         }
     }
 
-    public IrrfResponse generateIrrfResponse(IrrfRequest user) {
-        double inss = inssService.generateINSS(user.getSalarioMensalBruto());
-        IrrfResponse reps = new IrrfResponse();
-        ;
+    public IrrfResponse gerarIrrfResponse(IrrfRequest user) {
+        double inss = inssService.calcularINSS(user.getSalarioMensalBruto());
         return IrrfResponse.builder()
                 .nome(user.getNome())
                 .salarioMensalBruto(user.getSalarioMensalBruto())
@@ -86,7 +84,7 @@ public class IrrfService {
                 .totalDescontos(this.getValorTotalDescontos())
                 .valorDependentes(this.getValorDependentes())
                 .baseDeCalculo(this.getBaseCalculo())
-                .inss(inssService.generateINSS(user.getSalarioMensalBruto()))
+                .inss(inss)
                 .porcentagemAliquota(this.getPorcentagemAliquota())
                 .parcelaADeduzir(this.getParcelaADeduzir())
                 .irrf(this.getIrrf())

@@ -1,13 +1,13 @@
-Feature: Manipular rotar usuario
+Feature: Manipular rotas user
 
      Scenario: 1 - Calcular irpf
             Given: com JWT Bearer Token válido
-            When: calcular usuario valido
+            When: calcular user valido
             Then: deve retornar calculo irpf
             And: deve retornar status code 200 OK
 
             Given: com JWT Bearer Token inválido
-            When: calcular usuario valido ou invalido
+            When: calcular user valido ou invalido
             Then: deve lancar status 401 Unauthorized
             And: nao deve retornar calculo irpf
 

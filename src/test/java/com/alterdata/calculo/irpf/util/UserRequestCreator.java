@@ -7,8 +7,8 @@ public class UserRequestCreator {
     public static UserRequest createUserRequestBody() {
         return UserRequest.builder()
                 .nome("Test")
-                .username("testUsername")
-                .password("123321")
+                .usuario("testUsuario")
+                .senha("123321")
                 .build();
     }
 

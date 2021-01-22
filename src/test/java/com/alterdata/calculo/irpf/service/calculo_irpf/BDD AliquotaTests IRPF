@@ -1,4 +1,4 @@
-Feature:"Ao executar Aliquota generateAliquota"
+Feature:"Ao executar Aliquota gerarAliquota"
 
       Scenario: 1 - Gerar Faixa salarial 1 IRPF
              When: inserir faixa salarial 1 valor final IRPF

@@ -23,8 +23,8 @@ public class InssService {
         return Double.parseDouble(df.format(decimal));
     }
 
-    public double generateINSS(double salarioBruto) {
-        generateFaixaSalarial(salarioBruto);
+    public double calcularINSS(double salarioBruto) {
+        gerarFaixaSalarial(salarioBruto);
         this.deducaoAliquota = decimalFormater(salarioBruto * (this.porcentagemAliquota / 100));
         double inssCalc = this.deducaoAliquota - this.parcelaADeduzir;
 
@@ -35,7 +35,7 @@ public class InssService {
         return this.inss;
     }
 
-    public void generateFaixaSalarial(double salarioBruto) {
+    public void gerarFaixaSalarial(double salarioBruto) {
 
         if (salarioBruto <= FAIXA_SALARIAL1_VALOR_FINAL.value()) {
             this.parcelaADeduzir = FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value();
@@ -59,8 +59,8 @@ public class InssService {
         }
     }
 
-    public InssResponse generateInssResponse(InssRequest user) {
-        generateINSS(user.getSalarioMensalBruto());
+    public InssResponse gerarInssResponse(InssRequest user) {
+        calcularINSS(user.getSalarioMensalBruto());
 
         return InssResponse.builder()
                 .salarioMensalBruto(user.getSalarioMensalBruto())

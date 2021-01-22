@@ -18,11 +18,31 @@ public class SalarioLiqService {
     private double totalDescontos;
     private double salarioLiq;
 
+    public IrrfResponse calcularIrrf(SalarioLiqRequest user) {
+        this.outrosDescontos = user.getOutrosDescontos();
 
-    public SalarioLiqResponse generateSalarioLiqResponse(SalarioLiqRequest salarioLiqReq) {
-        IrrfResponse irrfResp = generateIrrfSalarioLiq(salarioLiqReq);
-        generateTotalDescontos(irrfResp);
-        generateSalarioLiq(salarioLiqReq);
+        IrrfRequest irrfCalculation = new IrrfRequest();
+        irrfCalculation.setNome(user.getNome());
+        irrfCalculation.setSalarioMensalBruto(user.getSalarioMensalBruto());
+        irrfCalculation.setDependentes(user.getDependentes());
+        irrfCalculation.setPensaoAlimenticia(user.getPensaoAlimenticia());
+
+        return this.calcIRRF.calcularIrrf(irrfCalculation);
+    }
+
+    public void calcularTotalDescontos(IrrfResponse irrfCalculation) {
+        this.totalDescontos = this.getOutrosDescontos() + irrfCalculation.getIrrf() + irrfCalculation.getInss() +
+                irrfCalculation.getPensaoAlimenticia();
+    }
+
+    public void calcularSalarioLiq(SalarioLiqRequest salarioLiqRequest) {
+        this.salarioLiq = salarioLiqRequest.getSalarioMensalBruto() - this.totalDescontos;
+    }
+
+    public SalarioLiqResponse gerarSalarioLiqResponse(SalarioLiqRequest salarioLiqReq) {
+        IrrfResponse irrfResp = calcularIrrf(salarioLiqReq);
+        calcularTotalDescontos(irrfResp);
+        calcularSalarioLiq(salarioLiqReq);
 
         return SalarioLiqResponse.builder()
                 .nome(irrfResp.getNome())
@@ -41,58 +61,4 @@ public class SalarioLiqService {
                 .build();
     }
 
-    public IrrfResponse generateIrrfSalarioLiq(SalarioLiqRequest user) {
-        this.outrosDescontos = user.getOutrosDescontos();
-
-        IrrfRequest irrfCalculation = new IrrfRequest();
-        irrfCalculation.setNome(user.getNome());
-        irrfCalculation.setSalarioMensalBruto(user.getSalarioMensalBruto());
-        irrfCalculation.setDependentes(user.getDependentes());
-        irrfCalculation.setPensaoAlimenticia(user.getPensaoAlimenticia());
-
-        return this.calcIRRF.generateIRRF(irrfCalculation);
-    }
-
-    public void generateTotalDescontos(IrrfResponse irrfCalculation) {
-        this.totalDescontos = this.getOutrosDescontos() + irrfCalculation.getIrrf() + irrfCalculation.getInss() +
-                irrfCalculation.getPensaoAlimenticia();
-    }
-
-    public void generateSalarioLiq(SalarioLiqRequest salarioLiqRequest) {
-        this.salarioLiq = salarioLiqRequest.getSalarioMensalBruto() - this.totalDescontos;
-    }
 }
-
-//    public SalarioLiqResponse generateSalarioLiq(SalarioLiqRequest user) {
-//       IrrfRequest irrfCalculation = new IrrfRequest();
-//       irrfCalculation.setNome(user.getNome());
-//       irrfCalculation.setSalarioMensalBruto(user.getSalarioMensalBruto());
-//       irrfCalculation.setDependentes(user.getDependentes());
-//       irrfCalculation.setPensaoAlimenticia(user.getPensaoAlimenticia());
-//
-//       IrrfResponse irrfResp = calcIRRF.generateIRRF(irrfCalculation);
-//
-//        double totalDescontos = user.getOutrosDescontos() + irrfResp.getIrrf() + irrfResp.getInss() +
-//                irrfCalculation.getPensaoAlimenticia();
-//
-//        double salarioLiq = user.getSalarioMensalBruto() - totalDescontos;
-//
-//        return SalarioLiqResponse.builder()
-//                .nome(irrfResp.getNome())
-//                .salarioMensalBruto(irrfResp.getSalarioMensalBruto())
-//                .dependentes(irrfResp.getDependentes())
-//                .valorDependentes(irrfResp.getValorDependentes())
-//                .pensaoAlimenticia(irrfResp.getPensaoAlimenticia())
-//                .inss(irrfResp.getInss())
-//                .baseDeCalculo(irrfResp.getBaseDeCalculo())
-//                .porcentagemAliquota(irrfResp.getPorcentagemAliquota())
-//                .parcelaADeduzir(irrfResp.getParcelaADeduzir())
-//                .irrf(irrfResp.getIrrf())
-//                .totalDescontos(totalDescontos)
-//                .outrosDescontos(user.getOutrosDescontos())
-//                .salarioLiquido(salarioLiq)
-//                .build();
-//    }
-//
-//
-//}

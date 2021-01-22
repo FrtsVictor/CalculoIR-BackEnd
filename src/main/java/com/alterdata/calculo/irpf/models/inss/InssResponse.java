@@ -37,7 +37,6 @@ public class InssResponse extends InssRequest {
         this.deducaoAliquota = deducaoAliquota;
     }
 
-
     @Builder
     public InssResponse(String nome,
                         double salarioMensalBruto,

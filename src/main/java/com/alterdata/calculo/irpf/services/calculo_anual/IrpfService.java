@@ -18,14 +18,14 @@ public class IrpfService {
         this.impostoInicial = aliqService.getPorcentagemAliquota() * aliqService.getBaseDeCalculo() / 100;
     }
 
-    public IrpfResponse calcularIR(AliqAnualIrpfService calcAliqAnualSimplesWithoutCSVOutService) {
-        this.aliqService = calcAliqAnualSimplesWithoutCSVOutService;
+    public IrpfResponse calcularIrpf(AliqAnualIrpfService aliqIrpfService) {
+        this.aliqService = aliqIrpfService;
         calcularImpostoInicial();
         this.impostoRenda = this.impostoInicial - aliqService.getParcelaADeduzirAliquota();
-        return generateCSVOut();
+        return gerarIrpfResponse();
     }
 
-    public IrpfResponse generateCSVOut() {
+    public IrpfResponse gerarIrpfResponse() {
         return IrpfResponse.builder()
                 .rendimentoAnualBruto(aliqService.getRendimentoAnualBruto())
                 .porcentagemAliquota(aliqService.getPorcentagemAliquota())

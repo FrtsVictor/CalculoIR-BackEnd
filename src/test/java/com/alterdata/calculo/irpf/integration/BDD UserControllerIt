@@ -1,11 +1,11 @@
 Feature: Rotas destinadas à usuário
 
-     Scenario: 1 - Registrar usuario
-            When: salvar usuario valido
+     Scenario: 1 - Registrar user
+            When: salvar user valido
             Then: nao deve lancar BadRequestException
             And: deve retornar status 201 CREATED
 
-     Scenario: 2 - Encontrar usuario por username
+     Scenario: 2 - Encontrar user por username
             Given: com JWT Bearer Token válido
             When: inserir username valido
             Then: deve retornar user por username
@@ -14,9 +14,9 @@ Feature: Rotas destinadas à usuário
             Given: com JWT Bearer Token invalido
             When: inserir username valido ou invalido
             Then: deve lancar status 401 Unauthorized
-            And: nao deve retornar usuario
+            And: nao deve retornar user
 
-     Scenario: 4 - Encontrar usuario por id
+     Scenario: 4 - Encontrar user por id
             Given: com JWT Bearer Token válido
             When: inserir id valido
             Then: deve retornar user por id
@@ -25,20 +25,20 @@ Feature: Rotas destinadas à usuário
             Given: com JWT Bearer Token invalido
             When: inserir id valido ou invalido
             Then: deve lancar status 401 Unauthorized
-            And: nao deve retornar usuario
+            And: nao deve retornar user
 
-     Scenario: 5 - Atualiar usuario por username
+     Scenario: 5 - Atualiar user por username
             Given: com JWT Bearer Token válido
             When: inserir username valido
-            Then: deve retornar atualizar usuario
+            Then: deve retornar atualizar user
             And: deve retornar status 204 NO_CONTENT
 
             Given: com JWT Bearer Token invalido
             When: inserir username valido ou invalido
             Then: deve lancar status 401 Unauthorized
-            And: nao deve atualizar usuario
+            And: nao deve atualizar user
 
-     Scenario: 6 - Remover usuario por id
+     Scenario: 6 - Remover user por id
             Given: com JWT Bearer Token válido
             When: inserir id valido
             Then: deve retornar user por id
@@ -47,4 +47,4 @@ Feature: Rotas destinadas à usuário
             Given: com JWT Bearer Token invalido
             When: inserir id valido ou invalido
             Then: deve lancar status 401 Unauthorized
-            And: nao deve remover usuario por id
+            And: nao deve remover user por id

@@ -16,9 +16,9 @@ public class SpringDocConfig {
     @Bean
     public OpenAPI myOpenAPI() {
         final String securitySchemeName = "bearerAuth";
-        return new OpenAPI().info(new Info().title("My MWE API")
-                .description("This document specifies the API")
-                .version("v23"))
+        return new OpenAPI().info(new Info().title("Calculo impost de renda")
+                .description("Api para calculo de imposto de renda, salario liquido e inss")
+                .version("v1"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components().addSecuritySchemes(securitySchemeName,
                         new SecurityScheme()
