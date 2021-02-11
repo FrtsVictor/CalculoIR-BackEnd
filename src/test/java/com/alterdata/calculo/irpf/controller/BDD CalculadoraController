@@ -1,0 +1,21 @@
+Feature: Manipular rotas para user
+ Scenario: 1 - Calcular inss
+            When: calcular inss valido
+            Then: deve retornar calculo inss
+            And: deve retornar status code 200 OK
+
+     Scenario: 2 - Calcular irrf
+            When: calcular irrf valido
+            Then: deve retornar calculos irrf
+            And: deve retornar status code 200 OK
+
+     Scenario: 3 - Calcular irpf
+             Given: com JWT Bearer Token válido
+             When: calcular irpf valido
+             Then: deve retornar calculo irpf
+             And: deve retornar status code 200 OK
+
+     Scenario: 4 - Calcular salario liquido
+             When: calcular salario liquido valido
+             Then: deve retornar calculo salario liquido
+             And: deve retornar status code 200 OK

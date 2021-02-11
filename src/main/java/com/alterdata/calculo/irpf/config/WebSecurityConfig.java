@@ -49,12 +49,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate",
-                "/api/calculate/salario-liq",
-                "/register").permitAll().
+                .authorizeRequests().antMatchers("/v1/authenticate",
+                "/v3/**",
+                "/swagger-ui.html/**",
+                "/swagger-ui/**",
+                "/v1/register").permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+
 }

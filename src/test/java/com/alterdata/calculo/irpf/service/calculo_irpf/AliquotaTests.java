@@ -1,26 +1,26 @@
 package com.alterdata.calculo.irpf.service.calculo_irpf;
 
-import com.alterdata.calculo.irpf.models.irpf.UserIRPFRequest;
-import com.alterdata.calculo.irpf.services.calculo_anual.CalcAliqAnualSimplesIRPFService;
+import com.alterdata.calculo.irpf.models.irpf.IrpfRequest;
+import com.alterdata.calculo.irpf.services.calculo_anual.AliqAnualIrpfService;
 import org.junit.jupiter.api.*;
 
-import static com.alterdata.calculo.irpf.services.calculo_anual.constants.TetoSalarialAnualAliquotaIRPF.*;
 import static com.alterdata.calculo.irpf.services.calculo_anual.constants.AliquotaAnualIRPF.*;
+import static com.alterdata.calculo.irpf.services.calculo_anual.constants.TetoSalarialAnualAliquotaIRPF.*;
 
-@DisplayName("Executando testes unitarios CalcIRPF generateAliquota()")
+@DisplayName("Executando testes unitarios CalcIRPF gerarAliquota()")
 public class AliquotaTests {
 
     private TestInfo testInfo;
     private TestReporter testReporter;
 
-    private CalcAliqAnualSimplesIRPFService aliqAnualService;
+    private AliqAnualIrpfService aliqAnualService;
 
-    private UserIRPFRequest usuarioCSVIn;
+    private IrpfRequest irpfRequest;
 
     @BeforeEach
     void initEach(TestReporter testReporter, TestInfo testInfo) {
-        aliqAnualService = new CalcAliqAnualSimplesIRPFService();
-        usuarioCSVIn = new UserIRPFRequest();
+        aliqAnualService = new AliqAnualIrpfService();
+        irpfRequest = new IrpfRequest();
 
 
         this.testReporter = testReporter;
@@ -36,22 +36,22 @@ public class AliquotaTests {
     class DeducaoSimplificada {
         @Test
         @DisplayName("Deve retornar TetoDeducaoSimplificada")
-        public void deve_retornar_TetoDeducaoSimplificada() {
+        void deve_retornar_TetoDeducaoSimplificada() {
             double rendimentoAnual = TETO_DEDUCAO_SALARIAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(aliqAnualService.getDeducaoSimplificada(), TETO_DEDUCAO_SIMPLIFICADA.value());
         }
 
         @Test
         @DisplayName("Nao deve retornar TetoDeducaoSimplificada")
-        public void nao_deve_retornar_TetoDeducaoSimplificada() {
+        void nao_deve_retornar_TetoDeducaoSimplificada() {
             double rendimentoAnual = TETO_DEDUCAO_SALARIAL.value() - 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(aliqAnualService.getDeducaoSimplificada(), TETO_DEDUCAO_SIMPLIFICADA.value());
         }
@@ -67,8 +67,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota1_para_valor_inicial() {
             double rendimentoAnual = TETO_SALARIAL1_INICIAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), aliqAnualService.getPorcentagemAliquota());
             Assertions.assertEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), aliqAnualService.getParcelaADeduzirAliquota());
@@ -79,8 +79,8 @@ public class AliquotaTests {
         void nao_Deve_retornar_Aliquota1_para_valores_superioes() {
             double rendimentoAnual = TETO_SALARIAL1_INICIAL.value() + 0.1;
             System.out.println(rendimentoAnual);
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL1_ALIQUOTA.value(), aliqAnualService.getParcelaADeduzirAliquota());
             Assertions.assertNotEquals(FAIXA_SALARIAL1_PARCELA_DEDUTIVEL.value(), aliqAnualService.getPorcentagemAliquota());
@@ -96,8 +96,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota2_para_valor_inicial() {
             double rendimentoAnual = TETO_SALARIAL2_INICIAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -109,8 +109,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota2_para_valor_final() {
             double rendimentoAnual = TETO_SALARIAL2_FINAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -122,8 +122,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota2_para_valores_superioes() {
             double rendimentoAnual = TETO_SALARIAL2_FINAL.value() + 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -135,8 +135,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota2_para_valores_inferioes() {
             double rendimentoAnual = TETO_SALARIAL2_INICIAL.value() - 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL2_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -153,8 +153,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota3_para_valor_inicial() {
             double rendimentoAnual = TETO_SALARIAL3_INICIAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -166,8 +166,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota3_para_valor_final() {
             double rendimentoAnual = TETO_SALARIAL3_FINAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -179,8 +179,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota3_para_valores_superioes() {
             double rendimentoAnual = TETO_SALARIAL3_FINAL.value() + 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -192,8 +192,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota3_para_valores_inferioes() {
             double rendimentoAnual = TETO_SALARIAL3_INICIAL.value() - 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL3_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -210,8 +210,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota4_para_valor_inicial() {
             double rendimentoAnual = TETO_SALARIAL4_INICIAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), aliqAnualService.getParcelaADeduzirAliquota());
             Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), aliqAnualService.getPorcentagemAliquota());
@@ -222,8 +222,8 @@ public class AliquotaTests {
         void deve_retornar_Aliquota4_para_valor_final() {
             double rendimentoAnual = TETO_SALARIAL4_FINAL.value();
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(), aliqAnualService.getParcelaADeduzirAliquota());
             Assertions.assertEquals(FAIXA_SALARIAL4_ALIQUOTA.value(), aliqAnualService.getPorcentagemAliquota());
@@ -234,8 +234,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota4_para_valores_superioes() {
             double rendimentoAnual = TETO_SALARIAL4_FINAL.value() + 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -247,8 +247,8 @@ public class AliquotaTests {
         void nao_deve_retornar_Aliquota4_para_valores_inferioes() {
             double rendimentoAnual = TETO_SALARIAL4_INICIAL.value() - 0.1;
 
-            UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-            aliqAnualService.generateAliquota(usrIn);
+            IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+            aliqAnualService.gerarAliquota(usrIn);
 
             Assertions.assertNotEquals(FAIXA_SALARIAL4_PARCELA_DEDUTIVEL.value(),
                     aliqAnualService.getParcelaADeduzirAliquota());
@@ -263,8 +263,8 @@ public class AliquotaTests {
             void deve_retornar_Aliquota5_para_valor_inicial() {
                 double rendimentoAnual = TETO_SALARIAL5_INICIAL.value();
 
-                UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-                aliqAnualService.generateAliquota(usrIn);
+                IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+                aliqAnualService.gerarAliquota(usrIn);
 
                 Assertions.assertEquals(FAIXA_SALARIAL5_PARCELA_DEDUTIVEL.value(),
                         aliqAnualService.getParcelaADeduzirAliquota());
@@ -276,8 +276,8 @@ public class AliquotaTests {
             void nao_deve_retornar_Aliquota5_para_valores_inferioes() {
                 double rendimentoAnual = TETO_SALARIAL5_INICIAL.value() - 0.1;
 
-                UserIRPFRequest usrIn = new UserIRPFRequest("Test", rendimentoAnual);
-                aliqAnualService.generateAliquota(usrIn);
+                IrpfRequest usrIn = new IrpfRequest("Test", rendimentoAnual);
+                aliqAnualService.gerarAliquota(usrIn);
 
                 Assertions.assertNotEquals(FAIXA_SALARIAL5_PARCELA_DEDUTIVEL.value(),
                         aliqAnualService.getParcelaADeduzirAliquota());
